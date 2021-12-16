@@ -25,6 +25,14 @@
     align-items: center;
     }
 
+.navbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    max-width: 1500px;
+}
+
 .navbar-logo:hover {
     color: #7283A6 !important;
     transition: 0.2s ease-out;
@@ -62,7 +70,7 @@
         height: 90vh;
         position: absolute;
         top: 45px;
-        left: -100%;
+        left: -200%;
         opacity: 90%;
         transition: all 0.5s ease;
     }
@@ -94,9 +102,9 @@
     }
 
     .navbar-light:hover .navbar-nav:hover .nav-link:hover {
-        background-color: #FDFFD8;
+        background-color: #F2F2F2;
         border-radius: 10px;
-        color: #7F7E79;
+        color: #7f7a79;
         transition: 250ms;
     }
 
@@ -106,5 +114,13 @@
         width: 100%;
         display: table;
     }
-    
+
+    .nav-links-mobile {
+        display: block;
+        text-align: center;
+        margin: 1rem auto;
+        width: 80%;
+        background-color: transparent;
+    }
+        
 }

@@ -4,9 +4,10 @@ import { Link , Outlet} from "react-router-dom";
 // import { RegisterModal } from '../commons/RegisterModal';
 // import { LoginModal } from '../commons/LoginModal';
 // import myAxios from '../../utilities/myAxios';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
+// import ButtonGroup from 'react-bootstrap/ButtonGroup';
+// import DropdownButton from 'react-bootstrap/DropdownButton';
+// import Dropdown from 'react-bootstrap/Dropdown';
+import { Button } from './../button/Button';
 import './Navigation.css';
 
 
@@ -60,7 +61,7 @@ function Navigation() {
 
     return (
         <div>
-            <div>
+            <div> 
                 <Navbar bg="light" variant="light" className = "navbar" style = {{
                     top: 5,
                     left: 5,
@@ -80,16 +81,28 @@ function Navigation() {
                         className='nav-links' >Regiony</Nav.Link>
                         <Nav.Link as={Link} to="/about" onClick={closeMobileMenu}
                         className='nav-links'>O mnie</Nav.Link>
+                        <Nav className='nav-links-mobile'>
+                        <Button buttonStyle='btn--primary'
+                        buttonSize='btn--large'
+                        onClick={closeMobileMenu}
+                        >
+                            ZALOGUJ</Button>
+                        </Nav>
+                        <Nav className='nav-links-mobile'>
+                        <Button buttonStyle='btn--outline'
+                        buttonSize='btn--large'
+                        onClick={closeMobileMenu}
+                        >
+                            ZAREJESTRUJ</Button>
+                        </Nav>
                     </Nav>   
-
                     <Nav style={{marginLeft: "auto"}}>
-                        {visLogin && <ButtonGroup>
-                            <DropdownButton align="end" variant="light" as={ButtonGroup} title="Logowanie" id="bg-nested-dropdown">
-                                <Dropdown.Item eventKey="1" >Zaloguj </Dropdown.Item>
-                                <Dropdown.Item eventKey="2" >Zarejestruj</Dropdown.Item>
-                            </DropdownButton>
-                        </ButtonGroup>
-                    }
+                        {visLogin && <Button buttonStyle='btn--primary'
+                        onClick={closeMobileMenu}>
+                            ZALOGUJ</Button>}
+                        {visLogin && <Button buttonStyle='btn--outline'
+                        onClick={closeMobileMenu}>
+                            ZAREJESTRUJ</Button>}
                     </Nav>
                     {/* <Nav style={{marginLeft: "auto"}}>
                         {userLogin==null &&
