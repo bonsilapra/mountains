@@ -8,13 +8,15 @@ import "bootstrap/dist/css/bootstrap.css";
 import Alert from 'react-bootstrap/Alert'
 import Navigation from './components/navigation/Navigation';
 import Footer from './components/footer/Footer';
+import {HomePage} from './components/homePage/HomePage';
+
 
 
 render(
   <BrowserRouter>
     <Navigation />
     <Routes>
-      <Route path="" element={<div style={{height: 100}}></div>} >
+      <Route path="" element={<HomePage />} >
         <Route
           path="*"
           element={

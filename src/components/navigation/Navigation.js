@@ -8,8 +8,6 @@ import { Button } from './../button/Button';
 import './Navigation.css';
 
 
-
-
 function Navigation() {
     const [click, setClick] = useState(false);
     const [visLogin, setVisLogin] = useState(true);
