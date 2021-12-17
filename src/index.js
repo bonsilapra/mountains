@@ -3,13 +3,11 @@ import {
   BrowserRouter,
   Routes,
   Route } from "react-router-dom";
-// import './index.css';
+import './index.css';
 import "bootstrap/dist/css/bootstrap.css";
 import Alert from 'react-bootstrap/Alert'
 import Navigation from './components/navigation/Navigation';
 import Footer from './components/footer/Footer';
-
-
 
 
 render(

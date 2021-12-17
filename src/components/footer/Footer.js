@@ -18,11 +18,11 @@ function Footer() {
                         </div>
                     <h4>Kontakt</h4>
                         <div class='footer-link-items'>
-                            <Link to='/'>E-mail</Link>
+                            <a href="mailto:joanna.falkowska93@gmail.com">E-mail</a>
                             <a href="https://www.instagram.com/bonsilapra/"
                             target='blank'
                             aria-label='Instagram'
-                            >
+                            > 
                                 Instagram
                             </a>
                         </div>

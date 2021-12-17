@@ -28,11 +28,13 @@
   .btn--medium {
     padding: 5px 20px;
     font-size: 15px;
+    font-weight: 600;
   }
   
   .btn--large {
-    padding: 12px 26px;
-    font-size: 20px;
+    padding: 10px 24px;
+    font-size: 18px;
+    font-weight: 800;
   }
   
   .btn--large:hover,

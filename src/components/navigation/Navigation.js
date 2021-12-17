@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import {Navbar, Nav} from 'react-bootstrap'
 import { Link , Outlet} from "react-router-dom";
-// import { RegisterModal } from '../commons/RegisterModal';
-// import { LoginModal } from '../commons/LoginModal';
-// import myAxios from '../../utilities/myAxios';
-// import ButtonGroup from 'react-bootstrap/ButtonGroup';
-// import DropdownButton from 'react-bootstrap/DropdownButton';
-// import Dropdown from 'react-bootstrap/Dropdown';
+import { RegisterModal } from '../commons/RegisterModal';
+import { LoginModal } from '../commons/LoginModal';
+import myAxios from '../../utilities/myAxios';
 import { Button } from './../button/Button';
 import './Navigation.css';
+
 
 
 
@@ -19,45 +17,36 @@ function Navigation() {
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
-    const showLogin = () => {
+    const showLoginButton = () => {
         if (window.innerWidth <= 960) {
             setVisLogin(false);
         } else {
             setVisLogin(true);
         }
     };
-
     useEffect(() => {
-        showLogin();
+        showLoginButton();
     }, []);
+    window.addEventListener('resize', showLoginButton);
 
-    window.addEventListener('resize', showLogin);
-        // this.state = {showRegister: false};
-        // this.setRegisterModal = this.setRegisterModal.bind(this);
-        // this.state = {showLogin: false}
-        // this.setLoginModal = this.setLoginModal.bind(this);
-
-    // setRegisterModal(showRegister) {
-    //     this.setState({ showRegister: showRegister});
-    // }
-
-    // setLoginModal(showLogin) {
-    //     this.setState({ showLogin: showLogin});
-    // }
-
-    // logout() { 
-    //     myAxios.get(`logout`)
-    //         .then((response) => {
-    //             sessionStorage.removeItem('userLogin');
-    //             window.location.reload()
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         })
-    // }
+    const [showRegister, setRegisterModal] = useState(false);
+    const [showLogin, setLoginModal] = useState(false);
 
 
-        // const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
+    const showRegisterModal = () => setRegisterModal(!showRegister);
+    const showLoginModal = () => setLoginModal(!showLogin);
+
+    const logout = () => 
+        myAxios.get(`logout`)
+            .then((response) => {
+                sessionStorage.removeItem('userLogin');
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
 
     return (
         <div>
@@ -82,55 +71,51 @@ function Navigation() {
                         <Nav.Link as={Link} to="/about" onClick={closeMobileMenu}
                         className='nav-links'>O mnie</Nav.Link>
                         <Nav className='nav-links-mobile'>
-                        <Button buttonStyle='btn--primary'
-                        buttonSize='btn--large'
-                        onClick={closeMobileMenu}
-                        >
-                            ZALOGUJ</Button>
+                            {userLogin==null &&
+                                <Button buttonStyle='btn--primary'
+                                buttonSize='btn--large'
+                                onClick={() => {closeMobileMenu(); showLoginModal()}}
+                                >
+                                    ZALOGUJ</Button>
+                            }
+                        </Nav>
+                            <Nav className='nav-links-mobile'>
+                            {userLogin==null &&
+                                <Button buttonStyle='btn--outline'
+                                buttonSize='btn--large'
+                                onClick={() => {closeMobileMenu(); showRegisterModal()}}
+                                >
+                                    ZAREJESTRUJ</Button>
+                            }
                         </Nav>
                         <Nav className='nav-links-mobile'>
-                        <Button buttonStyle='btn--outline'
-                        buttonSize='btn--large'
-                        onClick={closeMobileMenu}
-                        >
-                            ZAREJESTRUJ</Button>
+                            {userLogin==null ||
+                                <Button buttonStyle='btn--outline'
+                                buttonSize='btn--large'
+                                onClick={() => {closeMobileMenu(); logout()}}
+                                >
+                                    WYLOGUJ</Button>
+                            }
                         </Nav>
                     </Nav>   
                     <Nav style={{marginLeft: "auto"}}>
-                        {visLogin && <Button buttonStyle='btn--primary'
-                        onClick={closeMobileMenu}>
+                        {userLogin==null && visLogin && <Button buttonStyle='btn--primary'
+                        onClick={showLoginModal}>
                             ZALOGUJ</Button>}
-                        {visLogin && <Button buttonStyle='btn--outline'
-                        onClick={closeMobileMenu}>
+                        {userLogin==null && visLogin && <Button buttonStyle='btn--outline'
+                        onClick={showRegisterModal}>
                             ZAREJESTRUJ</Button>}
+                        {userLogin==null || (visLogin && <Button buttonStyle='btn--outline'
+                        onClick={logout}>
+                            WYLOGUJ</Button>)}
                     </Nav>
-                    {/* <Nav style={{marginLeft: "auto"}}>
-                        {userLogin==null &&
-                            <ButtonGroup>
-                                <DropdownButton align="end" variant="light" as={ButtonGroup} title="Logowanie" id="bg-nested-dropdown">
-                                    <Dropdown.Item eventKey="1" onClick={()=> this.setLoginModal(true)}>Zaloguj</Dropdown.Item>
-                                    <Dropdown.Item eventKey="2" onClick={()=> this.setRegisterModal(true)}>Zarejestruj</Dropdown.Item>
-                                </DropdownButton>
-                            </ButtonGroup>
-                        }
-                        {userLogin==null ||
-                            <ButtonGroup>
-                                <DropdownButton align="end" variant="light" as={ButtonGroup} title={userLogin.email} id="bg-nested-dropdown">
-                                    <Dropdown.Item eventKey="1" onClick={()=> this.logout()}>Wyloguj</Dropdown.Item>
-                                </DropdownButton>
-                            </ButtonGroup>
-                        }
-                    </Nav> */}
                     <Nav className= "menu-icon" style={{marginLeft: "auto", paddingRight: "10px"}} onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
                     </Nav>
                     </Navbar.Collapse>
                 </Navbar> 
-                {/* <RegisterModal show={this.state.showRegister} setOpen={this.setRegisterModal}/>
-                <LoginModal show={this.state.showLogin} setOpen={this.setLoginModal}/> */}
-                <div>
-                    
-                </div>
+                <RegisterModal show={showRegister} setOpen={showRegisterModal}/>
+                <LoginModal show={showLogin} setOpen={showLoginModal}/>
             </div>
             <Outlet />
         </div>
