@@ -1,0 +1,114 @@
+.footer-container {
+    background-color: #3B3B3D;
+    padding: 1rem 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 10px auto 0 auto;
+    color: #F2F2F2;
+  }
+  
+  .footer-link-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .footer-link-items {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+
+  .footer-link-items a {
+    color: #F2F2F2;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+
+  .footer-link-items a:hover {
+    color: #7283A6;
+    transition: 0.3s ease-out;
+  }  
+
+  /* Social Icons */
+  .social-icon-link {
+    color: #F2F2F2;
+    font-size: 2rem;
+  }
+
+  .social-icon-link:hover {
+    color: #7283A6;
+    transition: 0.2s ease-out;
+  }  
+
+  .social-media {
+    width: 100%;
+  }
+
+  .social-media-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 10px auto 0 auto;
+  }
+
+  .social-logo {
+    color: #F2F2F2;
+    justify-self: start;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .social-logo:hover {
+    color: #7283A6;
+    transition: 0.2s ease-out;
+  }
+
+  .website-rights {
+    color: #F2F2F2;
+    font-size: 12px;
+  }
+  
+  @media screen and (max-width: 768px) {
+  
+    .footer-link-items {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 160px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+  
+    .footer-link-wrapper {
+      flex-direction: column;
+    }
+  
+    .social-media-wrap {
+      flex-direction: column;
+    }
+  }
+  .website-rights {
+    margin-top: 10px
+  }
