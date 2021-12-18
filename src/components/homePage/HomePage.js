@@ -1,7 +1,7 @@
-import React from 'react'
-import backgroundImage from '../../images/homePageBackground.jpg'
-import { Background } from '../commons/Background'
-import './HomePage.css'
+import React from 'react';
+import backgroundImage from '../../images/homePageBackground.jpg';
+import { Background } from '../commons/Background';
+import './HomePage.css';
 import { Button } from './../button/Button';
 import { Link } from 'react-router-dom';
 

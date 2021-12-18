@@ -42,5 +42,6 @@
     transition: all 0.3s ease-out;
     background: #7283A6;
     color: #242424;
+    text-shadow: 0 0 10px #F2F2F2;
   }
   

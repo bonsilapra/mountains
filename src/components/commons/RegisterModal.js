@@ -1,8 +1,8 @@
-import React from 'react'
-import myAxios from '../../utilities/myAxios'
+import React from 'react';
+import myAxios from '../../utilities/myAxios';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal'
-import Form from 'react-bootstrap/Form'
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
 export class RegisterModal extends React.Component {
 

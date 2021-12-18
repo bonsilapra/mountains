@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import {Navbar, Nav} from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import {Navbar, Nav} from 'react-bootstrap';
 import { Link , Outlet} from "react-router-dom";
 import { RegisterModal } from '../commons/RegisterModal';
 import { LoginModal } from '../commons/LoginModal';
@@ -66,6 +66,8 @@ function Navigation() {
                         className='nav-links'>Pasma górskie</Nav.Link>
                         <Nav.Link as={Link} to="/regions"onClick={closeMobileMenu}
                         className='nav-links' >Regiony</Nav.Link>
+                        <Nav.Link as={Link} to="/attractions" onClick={closeMobileMenu}
+                        className='nav-links' >Atrakcje</Nav.Link>
                         <Nav.Link as={Link} to="/about" onClick={closeMobileMenu}
                         className='nav-links'>O mnie</Nav.Link>
                         <Nav className='nav-links-mobile'>

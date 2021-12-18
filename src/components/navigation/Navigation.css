@@ -102,7 +102,6 @@
     .navbar-light:hover .navbar-nav:hover .nav-link:hover {
         background-color: #F2F2F2;
         border-radius: 10px;
-        color: #7f7a79;
         transition: 250ms;
     }
 

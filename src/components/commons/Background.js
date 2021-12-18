@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import './Commons.css';
 
 export class Background extends React.Component {
