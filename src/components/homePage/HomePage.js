@@ -2,7 +2,7 @@ import React from 'react';
 import backgroundImage from '../../images/homePageBackground.jpg';
 import { Background } from '../commons/Background';
 import './HomePage.css';
-import { Button } from './../button/Button';
+import { MyButton } from './../button/MyButton';
 import { Link } from 'react-router-dom';
 
 export class HomePage extends React.Component {
@@ -19,12 +19,12 @@ export class HomePage extends React.Component {
                     Zapraszam do zapoznania się z trasami wycieczek w góry na terenie Polski.
                 </p>
                 <Link to="/mountainRanges">
-                    <Button
+                    <MyButton
                     buttonStyle='btn--primary'
                     buttonSize='btn--large'
                     >
                         Zaczynamy!
-                    </Button>
+                    </MyButton>
                 </Link> 
             </div>
             </>

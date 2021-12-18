@@ -4,7 +4,7 @@ import { Link , Outlet} from "react-router-dom";
 import { RegisterModal } from '../commons/RegisterModal';
 import { LoginModal } from '../commons/LoginModal';
 import myAxios from '../../utilities/myAxios';
-import { Button } from './../button/Button';
+import { MyButton } from './../button/MyButton';
 import './Navigation.css';
 
 
@@ -72,42 +72,42 @@ function Navigation() {
                         className='nav-links'>O mnie</Nav.Link>
                         <Nav className='nav-links-mobile'>
                             {userLogin==null &&
-                                <Button buttonStyle='btn--primary'
+                                <MyButton buttonStyle='btn--primary'
                                 buttonSize='btn--large'
                                 onClick={() => {closeMobileMenu(); showLoginModal()}}
                                 >
-                                    ZALOGUJ</Button>
+                                    ZALOGUJ</MyButton>
                             }
                         </Nav>
                             <Nav className='nav-links-mobile'>
                             {userLogin==null &&
-                                <Button buttonStyle='btn--outline'
+                                <MyButton buttonStyle='btn--outline'
                                 buttonSize='btn--large'
                                 onClick={() => {closeMobileMenu(); showRegisterModal()}}
                                 >
-                                    ZAREJESTRUJ</Button>
+                                    ZAREJESTRUJ</MyButton>
                             }
                         </Nav>
                         <Nav className='nav-links-mobile'>
                             {userLogin==null ||
-                                <Button buttonStyle='btn--outline'
+                                <MyButton buttonStyle='btn--outline'
                                 buttonSize='btn--large'
                                 onClick={() => {closeMobileMenu(); logout()}}
                                 >
-                                    WYLOGUJ</Button>
+                                    WYLOGUJ</MyButton>
                             }
                         </Nav>
                     </Nav>   
                     <Nav style={{marginLeft: "auto"}}>
-                        {userLogin==null && visLogin && <Button buttonStyle='btn--primary'
+                        {userLogin==null && visLogin && <MyButton buttonStyle='btn--primary'
                         onClick={showLoginModal}>
-                            ZALOGUJ</Button>}
-                        {userLogin==null && visLogin && <Button buttonStyle='btn--outline'
+                            ZALOGUJ</MyButton>}
+                        {userLogin==null && visLogin && <MyButton buttonStyle='btn--outline'
                         onClick={showRegisterModal}>
-                            ZAREJESTRUJ</Button>}
-                        {userLogin==null || (visLogin && <Button buttonStyle='btn--outline'
+                            ZAREJESTRUJ</MyButton>}
+                        {userLogin==null || (visLogin && <MyButton buttonStyle='btn--outline'
                         onClick={logout}>
-                            WYLOGUJ</Button>)}
+                            WYLOGUJ</MyButton>)}
                     </Nav>
                     <Nav className= "menu-icon" style={{marginLeft: "auto", paddingRight: "10px"}} onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

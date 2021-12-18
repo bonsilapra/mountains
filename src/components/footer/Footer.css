@@ -47,15 +47,6 @@
   }  
 
   /* Social Icons */
-  .social-icon-link {
-    color: #F2F2F2;
-    font-size: 2rem;
-  }
-
-  .social-icon-link:hover {
-    color: #7283A6;
-    transition: 0.2s ease-out;
-  }  
 
   .social-media {
     width: 100%;
