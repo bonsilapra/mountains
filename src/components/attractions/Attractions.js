@@ -132,6 +132,7 @@ export class Attractions extends React.Component {
                             <h4>
                                 {atrakcje.name}   
                             </h4>
+                            <p>{atrakcje.description}</p>
                             <section className='title-with-buttons'>
                                 <div>      
                                     <MyButton 
@@ -148,11 +149,12 @@ export class Attractions extends React.Component {
                                     </MyButton>
                                     </div>
                             </section>
-                            <p>{atrakcje.description}</p>
+                            <hr className="rounded" />
                         </>
                     )
                 }
-                <h5 style={{marginTop: "2rem"}}>                    
+
+                <h5 style={{marginBottom: "15px"}}>                    
                     <Button 
                         buttonStyle='btn--primary'
                         onClick={()=> this.setAdd(true)}>
@@ -160,9 +162,6 @@ export class Attractions extends React.Component {
                             <i style= {{"paddingLeft":"10px"}} class="fas fa-plus"></i>                   
                     </Button>
                 </h5>
-                <p>
-                    
-                </p>
             </div>
             <AttractionsAddModal show={this.state.add} setOpen={this.setAdd} addNewAttraction={this.addNewAttraction}/>
             <AttractionsAddModal show={this.state.edit} setOpen={this.setEdit} addNewAttraction={this.editAttraction}/>

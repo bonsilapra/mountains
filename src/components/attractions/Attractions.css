@@ -2,5 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.rounded {
+    border-top: 3px solid #7283A6;
+    width: 100%;
 }

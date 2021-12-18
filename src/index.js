@@ -11,6 +11,7 @@ import Footer from './components/footer/Footer';
 import {HomePage} from './components/homePage/HomePage';
 import {About} from './components/about/About';
 import {Attractions} from './components/attractions/Attractions';
+import Regions from './components/regions/Regions';
 
 
 
@@ -23,9 +24,9 @@ render(
       <Route path="trips" element={<Trips />} />
       <Route path="trip:id" element={<Trip />} />
       <Route path="mountainRanges" element={<MountainRanges />} />
-      <Route path="mountainRange:id" element={<MountainRange />} />
+      <Route path="mountainRange:id" element={<MountainRange />} />*/}
       <Route path="regions" element={<Regions />} />
-      <Route path="region:id" element={<Region />} />*/}
+      {/* <Route path="region:id" element={<Region />} />*/}
       <Route path="attractions" element={<Attractions />} /> 
       <Route path="about" element={<About />} />
       <Route

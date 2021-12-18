@@ -1,7 +1,7 @@
-import React from 'react'
-import backgroundImage from '../../images/aboutPageBackground.jpg'
-import { Background } from '../commons/Background'
-import '../commons/Commons.css'
+import React from 'react';
+import backgroundImage from '../../images/aboutBackground.jpg';
+import { Background } from '../commons/Background';
+import '../commons/Commons.css';
 
 export class About extends React.Component {
 
