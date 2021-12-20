@@ -6,9 +6,9 @@ import Alert from 'react-bootstrap/Alert';
 import { MyButton } from '../button/MyButton';
 import Button from 'react-bootstrap/Button';
 import { AttractionsAddModal } from './AttractionsAddModal';
+import { AttractionsEditModal } from './AttractionsEditModal';
 import Modal from 'react-bootstrap/Modal';
 import './Attractions.css';
-
 
 
 import '../commons/Commons.css';
@@ -19,7 +19,7 @@ export class Attractions extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {attraction: [], isError: false, show: false, add: false, edit: false, editId:"", id:""}
+        this.state = {attraction: [], isError: false, show: false, add: false, edit: false, editId:"", id:"", editObject:{}}
         this.setAdd = this.setAdd.bind(this);
         this.setEdit = this.setEdit.bind(this);
         this.addNewAttraction = this.addNewAttraction.bind(this);
@@ -35,8 +35,8 @@ export class Attractions extends React.Component {
         this.setState({ add: add});
     }
     
-    setEdit(edit, id) {
-        this.setState({ edit: edit, editId: id})
+    setEdit(edit, id, obj) {
+        this.setState({ edit: edit, editId: id, editObject:obj})
     }
 
     addNewAttraction (name, description, region) {
@@ -137,7 +137,7 @@ export class Attractions extends React.Component {
                                 <div>      
                                     <MyButton 
                                         buttonStyle='btn--primary'
-                                        onClick={(event)=> {this.setEdit(true, atrakcje.id); console.log(event); event.stopPropagation()}}>
+                                        onClick={(event)=> {this.setEdit(true, atrakcje.id, atrakcje); event.stopPropagation()}}>
                                             <i class="fas fa-pen"></i>                   
                                     </MyButton>
                                 </div>
@@ -164,7 +164,7 @@ export class Attractions extends React.Component {
                 </h5>
             </div>
             <AttractionsAddModal show={this.state.add} setOpen={this.setAdd} addNewAttraction={this.addNewAttraction}/>
-            <AttractionsAddModal show={this.state.edit} setOpen={this.setEdit} addNewAttraction={this.editAttraction}/>
+            <AttractionsEditModal show={this.state.edit} setOpen={this.setEdit} editAttraction={this.editAttraction} editObject={this.state.editObject}/>
             
             <Modal show={this.state.show} onHide={()=> this.setShow(false)}>
                     <Modal.Header closeButton>
