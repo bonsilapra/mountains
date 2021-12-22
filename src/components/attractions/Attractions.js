@@ -1,5 +1,6 @@
 import React from 'react';
 import backgroundImage from '../../images/attractionsBackground.jpg';
+import { Link } from "react-router-dom";
 import { Background } from '../commons/Background';
 import myAxios from '../../utilities/myAxios';
 import Alert from 'react-bootstrap/Alert';
@@ -9,8 +10,6 @@ import { AttractionsAddModal } from './AttractionsAddModal';
 import { AttractionsEditModal } from './AttractionsEditModal';
 import Modal from 'react-bootstrap/Modal';
 import './Attractions.css';
-
-
 import '../commons/Commons.css';
 
 
@@ -24,6 +23,7 @@ export class Attractions extends React.Component {
         this.setEdit = this.setEdit.bind(this);
         this.addNewAttraction = this.addNewAttraction.bind(this);
         this.editAttraction = this.editAttraction.bind(this)
+        window.scrollTo(0,0)
     }
 
 
@@ -91,9 +91,8 @@ export class Attractions extends React.Component {
     }
 
     componentDidMount() {
-        myAxios.get(`http://localhost:8080/attraction`)
+        myAxios.get(`attraction`)
             .then(res => {
-                console.log(res);
                 const attraction = res.data;
                 this.setState({ attraction });
                 }
@@ -112,8 +111,9 @@ export class Attractions extends React.Component {
             <div className="page-title">
                 ATRAKCJE
             </div>
-            <div className='page-container'>
+            <div className='page-container' >
                 <h1>Miejsca warte zobaczenia</h1>
+                <br />
                 {this.state.isError &&
                     <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
                     Backend nie działa!!!
@@ -121,9 +121,9 @@ export class Attractions extends React.Component {
                 }
                 {this.state.attraction &&
                 this.state.attraction.sort(function compare(a, b) {
-                    if (a.id<b.id)
+                    if (a.name<b.name)
                         return -1
-                    if (a.id>b.id)
+                    if (a.name>b.name)
                         return 1
                     return 0
                     })
@@ -132,7 +132,13 @@ export class Attractions extends React.Component {
                             <h4>
                                 {atrakcje.name}   
                             </h4>
-                            <p>{atrakcje.description}</p>
+                            <p style={{whiteSpace: "pre-wrap"}}>{atrakcje.description}</p>
+                            {atrakcje.region != null ? 
+                            (<p>Region: <Link to={"/regions"}
+                                state={{ regionId: atrakcje.region.id }}
+                                >
+                                    {atrakcje.region.name}
+                                </Link> </p>) : (<p></p>)}
                             <section className='title-with-buttons'>
                                 <div>      
                                     <MyButton 

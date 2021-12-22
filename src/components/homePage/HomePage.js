@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 
 export class HomePage extends React.Component {
 
+    constructor(props) {
+        super(props)
+        window.scrollTo(0,0)
+    }
 
     render() {
         return (

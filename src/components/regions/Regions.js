@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
+import { useLocation } from "react-router-dom";
 import backgroundImage from '../../images/regionsBackground.jpg';
 import polandMap from '../../images/poland.png';
 import smallPolandMap from '../../images/smallPoland.png';
 import { Background } from '../commons/Background';
 import ImageMapper from 'react-img-mapper';
 import myAxios from '../../utilities/myAxios';
+import { MyButton } from '../button/MyButton';
 import '../commons/Commons.css';
 import './Regions.css';
 
@@ -70,6 +72,14 @@ export default function Regions() {
                 areaKeyName: "Bieszczady",
                 fillColor: "#ABB0C4",
             },
+            {
+                id: 8,
+                shape: "circle",
+                coords: [337, 497, 10],
+                preFillColor: "#3B3B3D",
+                areaKeyName: "Okolice Rabki-Zdroju",
+                fillColor: "#ABB0C4",
+            },
         ]
     });
 
@@ -132,6 +142,14 @@ export default function Regions() {
                 areaKeyName: "Bieszczady",
                 fillColor: "#ABB0C4",
             },
+            {
+                id: 8,
+                shape: "circle",
+                coords: [188, 285, 7],
+                preFillColor: "#3B3B3D",
+                areaKeyName: "Okolice Rabki-Zdroju",
+                fillColor: "#ABB0C4",
+            },
         ]
     });
 
@@ -145,8 +163,7 @@ export default function Regions() {
         setAreaName(" ")
     }
 
-
-    const onMapClick = (area) => {
+        const onMapClick = (area) => {
         let regionFound = regions.find(element => element.name == area.areaKeyName)
         if (regionFound!==undefined) {
             document.getElementById('region' + regionFound.id).scrollIntoView()
@@ -170,13 +187,24 @@ export default function Regions() {
 
     let [regions, setRegions] = useState([])
 
+    const location = useLocation();
+
     useEffect(() => {
         const axiosPosts = async () => {
-            const response = await myAxios('http://localhost:8080/region');
+            const response = await myAxios('region');
             setRegions(response.data);
+            setTimeout(() => document.getElementById('region' + location.state.regionId).scrollIntoView(), 1000)
         };
         axiosPosts();
     }, []);
+
+    const scrollToTop = () =>{
+        window.scrollTo({
+            top: 0, 
+            behavior: 'smooth'
+        });
+    };
+    
 
 
     return (
@@ -189,7 +217,7 @@ export default function Regions() {
             <div className="page-container">
                 <h1>Podział Polski na "regiony"</h1>
                 <p>"Regiony" zostały określone przeze mnie jako obszary, po których przemieszczałam się w ramach jednego wyjazdu. Jest to tylko mój wymysł, który ułatwia planowanie wycieczek.</p>
-                <div className>
+                <div>
                     {resize && <ImageMapper
                         src={polandMap}
                         map={mapAreas}
@@ -208,23 +236,48 @@ export default function Regions() {
                         onMouseEnter={(area) => { enterArea(area) }}
                         onMouseLeave={(area) => { leaveArea(area) }}
                         onImageClick={(area) => { leaveArea(area) }}
+                        onClick={(area) => { onMapClick(area) }}
                     />
                     }
                 </div>
                 <h4>{area}</h4>
-                <div>
                     {regions.map((region) =>
-                        <div id={"region" + region.id}>
+                        <div id={"region" + region.id} className="page">
+                            <hr className="rounded" />
                             <h2>{region.name}</h2>
-                            <p>{region.description}</p>
-                            <ul>
-                                {region.attractions.map((attraction) =>
-                                    <li><b>{attraction.name}</b> - {attraction.description}</li>
-                                )}
-                            </ul>
+                            <p style={{whiteSpace: "pre-wrap"}}>{region.description}</p>
+                            <h5>Pasma górskie w regionie:</h5>
+                                {region.mountainRanges.map((mountainRange) =>
+                                <ul className="list-no-bullets">
+                                    <li><b>{mountainRange.name}</b> - {mountainRange.description}</li>
+                                    <li> Szczyty:
+                                        <ul className="list-bullets-inside"> 
+                                            {mountainRange.peaks.map((peak) =>
+                                                <li>{peak.name}</li>
+                                            )}
+                                        </ul>
+                                    </li>                                   
+                                </ul>)}
+                            <h5>Atrakcje w regionie:</h5>
+                            {region.attractions != null && region.attractions.length != 0 ? 
+                                (
+                                <ul className="list-no-bullets">
+                                    {region.attractions.map((attraction) =>
+                                        <li><b>{attraction.name}</b> - {attraction.description}</li>
+                                    )}
+                                </ul>
+                                ):
+                                (<p>Będą wkrótce :&#41;</p>)
+                            }
+                            <div style={{marginBottom: "10px"}}>      
+                                <MyButton 
+                                    buttonStyle='btn--primary'
+                                    onClick={scrollToTop}>
+                                        <i class="fas fa-arrow-up"></i>                   
+                                </MyButton>
+                            </div>
                         </div>
                     )}
-                </div>   
             </div>
             }
         </>
