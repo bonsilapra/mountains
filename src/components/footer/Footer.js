@@ -10,11 +10,13 @@ function Footer() {
                     <h4>Górskie wycieczki</h4>
                         <div className='footer-link-items'>
                             <Link to='/'>Strona główna</Link>
-                            <Link to='/'>KGP - lista</Link>
-                            <Link to='/'>Wycieczki</Link>
-                            <Link to='/'>Pasma górskie</Link>
-                            <Link to='/'>Regiony</Link>
-                            <Link to='/'>O mnie</Link>
+                            <Link to='/kgpList'>KGP - lista</Link>
+                            <Link to='/trips'>Wycieczki</Link>
+                            <Link to='/Peaks'>Szczyty</Link>
+                            <Link to='/mountainRanges'>Pasma górskie</Link>
+                            <Link to='/regions'>Regiony</Link>
+                            <Link to='/attractions'>Atrakcje</Link>
+                            <Link to='/about'>O mnie</Link>
                         </div>
                     <h4>Kontakt</h4>
                         <div className='footer-link-items'>

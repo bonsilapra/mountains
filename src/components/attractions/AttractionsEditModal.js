@@ -22,7 +22,7 @@ export class AttractionsEditModal extends React.Component {
 
 
     componentDidMount() {
-        myAxios.get(`http://localhost:8080/region`)
+        myAxios.get(`region`)
             .then(res => {
                 console.log(res);
                 const regions = res.data;

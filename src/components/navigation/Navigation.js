@@ -16,7 +16,7 @@ function Navigation() {
     const closeMobileMenu = () => setClick(false);
 
     const showLoginButton = () => {
-        if (window.innerWidth <= 960) {
+        if (window.innerWidth <= 1010) {
             setVisLogin(false);
         } else {
             setVisLogin(true);
@@ -62,6 +62,8 @@ function Navigation() {
                         className='nav-links'>KGP - lista</Nav.Link>
                         <Nav.Link as={Link} to="/trips" onClick={closeMobileMenu}
                         className='nav-links'>Wycieczki</Nav.Link>
+                        <Nav.Link as={Link} to="/Peaks" onClick={closeMobileMenu}
+                        className='nav-links'>Szczyty</Nav.Link>
                         <Nav.Link as={Link} to="/mountainRanges" onClick={closeMobileMenu}
                         className='nav-links'>Pasma górskie</Nav.Link>
                         <Nav.Link as={Link} to="/regions"onClick={closeMobileMenu}

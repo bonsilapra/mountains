@@ -28,6 +28,7 @@
   .footer-link-items {
     display: flex;
     flex-direction: row;
+    max-width: 1200px;
     margin: 10px;
     box-sizing: border-box;
     font-size: 1rem;
@@ -80,7 +81,7 @@
     font-size: 12px;
   }
   
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1035px) {
   
     .footer-link-items {
       display: flex;

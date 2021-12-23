@@ -70,6 +70,17 @@
     transition: 0.2s ease-out;
 }
 
+.page-container > h6 > a {
+    text-decoration: none;
+    color:#7283A6 ;
+}
+
+.page-container > h6 > a:hover {
+    text-decoration: none;
+    color:#3B3B3D;
+    transition: 0.2s ease-out;
+}
+
 .page {
     max-width: 1000px;
     width: 100%;
@@ -124,6 +135,16 @@
 .rounded {
     border-top: 3px solid #7283A6;
     width: 100%;
+}
+
+.link {
+    text-decoration: none;
+    color:#7283A6 ;
+}
+
+.link:hover {
+    text-decoration: none;
+    color:#3B3B3D ;
 }
 
 @media screen and (max-width: 768px) {

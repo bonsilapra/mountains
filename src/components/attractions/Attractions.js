@@ -134,11 +134,11 @@ export class Attractions extends React.Component {
                             </h4>
                             <p style={{whiteSpace: "pre-wrap"}}>{atrakcje.description}</p>
                             {atrakcje.region != null ? 
-                            (<p>Region: <Link to={"/regions"}
+                            (<h6>Region: <Link to={"/regions"}
                                 state={{ regionId: atrakcje.region.id }}
                                 >
                                     {atrakcje.region.name}
-                                </Link> </p>) : (<p></p>)}
+                                </Link> </h6>) : (<p></p>)}
                             <section className='title-with-buttons'>
                                 <div>      
                                     <MyButton 
@@ -161,12 +161,12 @@ export class Attractions extends React.Component {
                 }
 
                 <h5 style={{marginBottom: "15px"}}>                    
-                    <Button 
+                    <MyButton 
                         buttonStyle='btn--primary'
                         onClick={()=> this.setAdd(true)}>
                             DODAJ 
                             <i style= {{"paddingLeft":"10px"}} class="fas fa-plus"></i>                   
-                    </Button>
+                    </MyButton>
                 </h5>
             </div>
             <AttractionsAddModal show={this.state.add} setOpen={this.setAdd} addNewAttraction={this.addNewAttraction}/>

@@ -7,6 +7,7 @@ import { Background } from '../commons/Background';
 import ImageMapper from 'react-img-mapper';
 import myAxios from '../../utilities/myAxios';
 import { MyButton } from '../button/MyButton';
+import { Link } from "react-router-dom";
 import '../commons/Commons.css';
 import './Regions.css';
 
@@ -80,6 +81,14 @@ export default function Regions() {
                 areaKeyName: "Okolice Rabki-Zdroju",
                 fillColor: "#ABB0C4",
             },
+            {
+                id: 9,
+                shape: "circle",
+                coords: [379, 376, 10],
+                preFillColor: "#3B3B3D",
+                areaKeyName: "Świętokrzyskie",
+                fillColor: "#ABB0C4",
+            },
         ]
     });
 
@@ -148,6 +157,14 @@ export default function Regions() {
                 coords: [188, 285, 7],
                 preFillColor: "#3B3B3D",
                 areaKeyName: "Okolice Rabki-Zdroju",
+                fillColor: "#ABB0C4",
+            },
+            {
+                id: 9,
+                shape: "circle",
+                coords: [214, 210, 7],
+                preFillColor: "#3B3B3D",
+                areaKeyName: "Świętokrzyskie",
                 fillColor: "#ABB0C4",
             },
         ]
@@ -241,7 +258,14 @@ export default function Regions() {
                     }
                 </div>
                 <h4>{area}</h4>
-                    {regions.map((region) =>
+                    {regions.sort(function compare(a, b) {
+                        if (a.name<b.name)
+                            return -1
+                        if (a.name>b.name)
+                            return 1
+                        return 0
+                        })
+                    .map((region) =>
                         <div id={"region" + region.id} className="page">
                             <hr className="rounded" />
                             <h2>{region.name}</h2>
@@ -249,11 +273,22 @@ export default function Regions() {
                             <h5>Pasma górskie w regionie:</h5>
                                 {region.mountainRanges.map((mountainRange) =>
                                 <ul className="list-no-bullets">
-                                    <li><b>{mountainRange.name}</b> - {mountainRange.description}</li>
+                                    <li><Link to={"/mountainRange/" + mountainRange.id} className="link">
+                                        <b>{mountainRange.name}</b></Link> - {mountainRange.description}</li>
                                     <li> Szczyty:
                                         <ul className="list-bullets-inside"> 
-                                            {mountainRange.peaks.map((peak) =>
-                                                <li>{peak.name}</li>
+                                            {mountainRange.peaks.sort(function compare(a, b) {
+                                                if (a.name<b.name)
+                                                    return -1
+                                                if (a.name>b.name)
+                                                    return 1
+                                                return 0
+                                                })
+                                            .map((peak) =>
+                                                <li>{peak.isKGP==true ? (
+                                                    <b> {peak.name} </b>
+                                                ): <b style={{fontWeight: 400}}>{peak.name}</b>}
+                                                </li>
                                             )}
                                         </ul>
                                     </li>                                   

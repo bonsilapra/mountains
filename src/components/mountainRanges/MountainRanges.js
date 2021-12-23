@@ -120,18 +120,21 @@ export class MountainRanges extends React.Component {
                     Backend nie działa!!!
                     </Alert>
                 }
-                {this.state.mountainRange &&
-                this.state.mountainRange.sort(function compare(a, b) {
-                    if (a.name<b.name)
-                        return -1
-                    if (a.name>b.name)
-                        return 1
-                    return 0
-                    })
-                    .map((mRange) =>
-                        <MRPostcard id={mRange.id} peak={mRange.peaks} name={mRange.name} />
-                    )
-                }
+                <h1>Pasma górskie uwzględnione w Koronie Gór Polski</h1>
+                <div className='cards-container'>
+                    {this.state.mountainRange &&
+                    this.state.mountainRange.sort(function compare(a, b) {
+                        if (a.name<b.name)
+                            return -1
+                        if (a.name>b.name)
+                            return 1
+                        return 0
+                        })
+                        .map((mRange) =>
+                                <MRPostcard id={mRange.id} peak={mRange.peaks} name={mRange.name} />
+                        )
+                    }
+                </div>
                             {/* {pasma.region != null ? 
                             (<p>Region: {atrakcje.region.name}</p>) : (<p></p>)} */}
                             {/* <section className='title-with-buttons'>
