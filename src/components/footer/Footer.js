@@ -10,7 +10,6 @@ function Footer() {
                     <h4>Górskie wycieczki</h4>
                         <div className='footer-link-items'>
                             <Link to='/'>Strona główna</Link>
-                            <Link to='/kgpList'>KGP - lista</Link>
                             <Link to='/trips'>Wycieczki</Link>
                             <Link to='/Peaks'>Szczyty</Link>
                             <Link to='/mountainRanges'>Pasma górskie</Link>

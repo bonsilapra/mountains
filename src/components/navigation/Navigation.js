@@ -58,8 +58,6 @@ function Navigation() {
                     /></Navbar.Brand>
                     <Navbar.Collapse>
                     <Nav className={click ? 'nav-menu active' : 'nav-menu'}>
-                        <Nav.Link as={Link} to="/kgpList" onClick={closeMobileMenu}
-                        className='nav-links'>KGP - lista</Nav.Link>
                         <Nav.Link as={Link} to="/trips" onClick={closeMobileMenu}
                         className='nav-links'>Wycieczki</Nav.Link>
                         <Nav.Link as={Link} to="/Peaks" onClick={closeMobileMenu}

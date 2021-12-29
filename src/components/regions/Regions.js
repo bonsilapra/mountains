@@ -180,7 +180,7 @@ export default function Regions() {
         setAreaName(" ")
     }
 
-        const onMapClick = (area) => {
+    const onMapClick = (area) => {
         let regionFound = regions.find(element => element.name == area.areaKeyName)
         if (regionFound!==undefined) {
             document.getElementById('region' + regionFound.id).scrollIntoView()

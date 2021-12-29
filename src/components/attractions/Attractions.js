@@ -105,6 +105,9 @@ export class Attractions extends React.Component {
 
 
     render() {
+
+        const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
+
         return (
             <>
             <Background image={backgroundImage}/>
@@ -139,27 +142,29 @@ export class Attractions extends React.Component {
                                 >
                                     {atrakcje.region.name}
                                 </Link> </h6>) : (<p></p>)}
-                            <section className='title-with-buttons'>
-                                <div>      
-                                    <MyButton 
-                                        buttonStyle='btn--primary'
-                                        onClick={(event)=> {this.setEdit(true, atrakcje.id, atrakcje); event.stopPropagation()}}>
-                                            <i class="fas fa-pen"></i>                   
-                                    </MyButton>
-                                </div>
-                                <div>
-                                    <MyButton 
-                                        buttonStyle='btn--outline'
-                                        onClick={(event)=> {this.setShow(true, atrakcje.id); event.stopPropagation()}}>
-                                            <i class="fas fa-trash"></i>                   
-                                    </MyButton>
+                            {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                                <section className='title-with-buttons'>
+                                    <div>      
+                                        <MyButton 
+                                            buttonStyle='btn--primary'
+                                            onClick={(event)=> {this.setEdit(true, atrakcje.id, atrakcje); event.stopPropagation()}}>
+                                                <i class="fas fa-pen"></i>                   
+                                        </MyButton>
                                     </div>
-                            </section>
+                                    <div>
+                                        <MyButton 
+                                            buttonStyle='btn--outline'
+                                            onClick={(event)=> {this.setShow(true, atrakcje.id); event.stopPropagation()}}>
+                                                <i class="fas fa-trash"></i>                   
+                                        </MyButton>
+                                        </div>
+                                </section>
+                            }
                             <hr className="rounded" />
                         </>
                     )
                 }
-
+                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                 <h5 style={{marginBottom: "15px"}}>                    
                     <MyButton 
                         buttonStyle='btn--primary'
@@ -168,6 +173,7 @@ export class Attractions extends React.Component {
                             <i style= {{"paddingLeft":"10px"}} class="fas fa-plus"></i>                   
                     </MyButton>
                 </h5>
+                }
             </div>
             <AttractionsAddModal show={this.state.add} setOpen={this.setAdd} addNewAttraction={this.addNewAttraction}/>
             <AttractionsEditModal show={this.state.edit} setOpen={this.setEdit} editAttraction={this.editAttraction} editObject={this.state.editObject}/>

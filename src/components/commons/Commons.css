@@ -81,6 +81,7 @@
     transition: 0.2s ease-out;
 }
 
+
 .page {
     max-width: 1000px;
     width: 100%;
@@ -145,6 +146,7 @@
 .link:hover {
     text-decoration: none;
     color:#3B3B3D ;
+    transition: 0.2s ease-out;
 }
 
 @media screen and (max-width: 768px) {

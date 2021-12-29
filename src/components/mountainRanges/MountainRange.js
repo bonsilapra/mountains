@@ -2,6 +2,7 @@ import React, { useState, useEffect }  from 'react'
 import { useParams } from "react-router-dom"
 import myAxios from '../../utilities/myAxios';
 import { Link } from 'react-router-dom'
+import moment from 'moment';
 import './MountainRanges.css';
 import '../commons/Commons.css';
 
@@ -94,10 +95,19 @@ export function MountainRange() {
                             return 0
                             })
                     .map((peak) =>
-                            <li style={{whiteSpace: "pre-wrap"}}><b>{peak.name}</b> - wysokość {peak.height} m n.p.m. - {peak.description} <br />
-                            {peak.isKGP==true ? (
-                                <b>Szczyt należy do Korony Gór Polski.</b>): (null)}
-                            </li>
+                    
+                        <li style={{whiteSpace: "pre-wrap"}}>
+                            <Link 
+                                className='link'
+                                to={"/peaks"}
+                                state={{ peakId: peak.id }}
+                            >
+                                {peak.name}
+                            </Link>
+                                : wysokość {peak.height} m n.p.m. - {peak.description} <br />
+                                {peak.isKGP==true ? (
+                                    <b>Szczyt należy do Korony Gór Polski.</b>): (null)}
+                        </li>
                     )}
                 </ul>
                 </>
@@ -108,7 +118,12 @@ export function MountainRange() {
                     (
                     <ul className="list-no-bullets">
                         {mountainRange.trips.map((trip) =>
-                            <li><b>{trip.name}</b> - {trip.description}</li>
+                            <li><b><Link 
+                            className='link'
+                            to={"/trips"}
+                            state={{ tripId: trip.id }}
+                        >{trip.name}</Link></b> 
+                        ({moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}) - {trip.description}</li>
                         )}
                     </ul>
                     ):

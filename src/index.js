@@ -14,7 +14,9 @@ import {Attractions} from './components/attractions/Attractions';
 import Regions from './components/regions/Regions';
 import {MountainRanges} from './components/mountainRanges/MountainRanges';
 import {MountainRange} from './components/mountainRanges/MountainRange'
-import {Peaks} from './components/peaks/Peaks';
+import Peaks from './components/peaks/Peaks';
+import Trips from './components/trips/Trips';
+
 
 
 
@@ -24,8 +26,8 @@ render(
     <Navigation />
     <Routes>
       <Route path="" element={<HomePage />} />
-      {/* <Route path="kgpLista" element={<KGPList />} />
       <Route path="trips" element={<Trips />} />
+            {/* 
       <Route path="trip/:id" element={<Trip />} /> */}
       <Route path="peaks" element={<Peaks />} /> 
       <Route path="mountainRanges" element={<MountainRanges />} /> 
