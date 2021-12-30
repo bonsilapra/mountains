@@ -3,6 +3,8 @@ import myAxios from '../../utilities/myAxios'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import Select from 'react-select';
+import moment from 'moment';
+
 
 export class PeaksAddModal extends React.Component {
 
@@ -28,9 +30,9 @@ export class PeaksAddModal extends React.Component {
                 const mRanges = res.data;
                 const mRangeOptions = 
                     mRanges.sort(function compare(a, b) {
-                        if (a.id<b.id)
+                        if (a.name<b.name)
                             return -1
-                        if (a.id>b.id)
+                        if (a.name>b.name)
                             return 1
                         return 0
                     })
@@ -40,7 +42,7 @@ export class PeaksAddModal extends React.Component {
                 this.setState({ mRanges: mRangeOptions });
                 }
             )
-        myAxios.get(`trips`)
+        myAxios.get(`trip`)
             .then(res => {
                 console.log(res);
                 const trips = res.data;
@@ -53,13 +55,12 @@ export class PeaksAddModal extends React.Component {
                         return 0
                     })
                     .map((trip) => {
-                        return {value: trip, label: trip.name }
+                        return {value: trip, label: trip.name + " " + moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD") }
                     })
                 this.setState({ trips: tripOptions });
                 }
             )
     }
-
 
 
     handleNameChange(event) {

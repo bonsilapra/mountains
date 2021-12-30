@@ -19,8 +19,6 @@ export class AttractionsEditModal extends React.Component {
     }
 
 
-
-
     componentDidMount() {
         myAxios.get(`region`)
             .then(res => {
@@ -28,9 +26,9 @@ export class AttractionsEditModal extends React.Component {
                 const regions = res.data;
                 const regionOptions = 
                     regions.sort(function compare(a, b) {
-                        if (a.id<b.id)
+                        if (a.name<b.name)
                             return -1
-                        if (a.id>b.id)
+                        if (a.name>b.name)
                             return 1
                         return 0
                     })
@@ -69,7 +67,7 @@ export class AttractionsEditModal extends React.Component {
                         <Modal.Title>Edytowanie</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Co chcesz zmienić:</p>
+                        <p>Edytuj atrakcję:</p>
                         <input 
                             placeholder="Nazwa" 
                             type="text" 

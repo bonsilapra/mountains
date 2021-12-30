@@ -12,14 +12,16 @@ export class TripsAddModal extends React.Component {
             form: {
                 name: "", 
                 description: "", 
-                height: "", 
-                isKGP: "", 
-                mountainRange: null,
-                trips: null
+                date: "",
+                mapaTurystycznaLink: "", 
+                region: "", 
+                mountainRanges: [],
+                peaks: []
             },
-            peaks: [],
+            trips: [],
         }
     }
+
 
     componentDidMount() {
         myAxios.get(`mountainRange`)
@@ -28,9 +30,9 @@ export class TripsAddModal extends React.Component {
                 const mRanges = res.data;
                 const mRangeOptions = 
                     mRanges.sort(function compare(a, b) {
-                        if (a.id<b.id)
+                        if (a.name<b.name)
                             return -1
-                        if (a.id>b.id)
+                        if (a.name>b.name)
                             return 1
                         return 0
                     })
@@ -40,26 +42,43 @@ export class TripsAddModal extends React.Component {
                 this.setState({ mRanges: mRangeOptions });
                 }
             )
-        myAxios.get(`trip`)
+        myAxios.get(`peak`)
             .then(res => {
                 console.log(res);
-                const trips = res.data;
-                const tripOptions = 
-                    trips.sort(function compare(a, b) {
-                        if (a.date<b.date)
+                const peaks = res.data;
+                const peakOptions = 
+                    peaks.sort(function compare(a, b) {
+                        if (a.name<b.name)
                             return -1
-                        if (a.date>b.date)
+                        if (a.name>b.name)
                             return 1
                         return 0
                     })
-                    .map((trip) => {
-                        return {value: trip, label: trip.name }
+                    .map((peak) => {
+                        return {value: peak, label: peak.name }
                     })
-                this.setState({ trips: tripOptions });
+                this.setState({ peaks: peakOptions });
+                }
+            )
+        myAxios.get(`region`)
+            .then(res => {
+                console.log(res);
+                const regions = res.data;
+                const regionOptions = 
+                    regions.sort(function compare(a, b) {
+                        if (a.name<b.name)
+                            return -1
+                        if (a.name>b.name)
+                            return 1
+                        return 0
+                    })
+                    .map((region) => {
+                        return {value: region, label: region.name }
+                    })
+                this.setState({ regions: regionOptions });
                 }
             )
     }
-
 
 
     handleNameChange(event) {
@@ -70,20 +89,24 @@ export class TripsAddModal extends React.Component {
         this.setState({form: {...this.state.form, description: event.target.value}});
     }
 
-    handleHeightChange(event) {
-        this.setState({form: {...this.state.form, height: event.target.value}});
+    handleDateChange(event) {
+        this.setState({form: {...this.state.form, date: event.target.value}});
     }
 
-    handleKGPChange(event) {
-        this.setState({form: {...this.state.form, isKGP: event.target.value}});
+    handleChangeRegions = (selectedOption) => {
+        this.setState({form: {...this.state.form, region: selectedOption.value }});
+    }
+
+    handleMapChange(event) {
+        this.setState({form: {...this.state.form, mapaTurystycznaLink: event.target.value}});
     }
 
     handleChangeMountainRange = (selectedOption) => {
-        this.setState({form: {...this.state.form, mountainRange: selectedOption.value }});
+        this.setState({form: {...this.state.form, mountainRanges: selectedOption.value }});
     }
 
-    handleChangeTrips = (selectedOptions) => {
-        this.setState({form: {...this.state.form, trips: selectedOptions.value }});
+    handleChangePeaks = (selectedOptions) => {
+        this.setState({form: {...this.state.form, peaks: selectedOptions.value }});
     }
 
 
@@ -97,7 +120,7 @@ export class TripsAddModal extends React.Component {
                         <Modal.Title>Dodawanie</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Co chcesz dodać:</p>
+                        <p>Dodaj wycieczkę:</p>
                         <input 
                             placeholder="Nazwa" 
                             type="text" 
@@ -108,34 +131,45 @@ export class TripsAddModal extends React.Component {
                         <textarea 
                             placeholder="Opis" 
                             style={{width: "100%"}}
+                            type="text" 
                             rows={5}
                             value={this.state.form.description} 
                             onChange={(event)=>this.handleDescriptionChange(event)} />
                         <p></p>
+                        <label for="data">Data wycieczki:</label>
                         <input 
-                            placeholder="Wysokość" 
-                            type="number" 
+                            id="data"
+                            type="date" 
                             style={{width: "100%"}}
-                            value={this.state.form.height} 
-                            onChange={(event)=>this.handleHeightChange(event)} />
+                            value={this.state.form.date} 
+                            onChange={(event)=>this.handleDateChange(event)} />
                         <p></p>
-                        <p>Czy szczyt należy do Korony Gór Polski</p>
-                        <input type="radio" id="isKGP" name="isKGP" value="true" />
-                        <label for="isKGP"> TAK </label><br />
-                        <input type="radio" id="noKGP" name="isKGP" value="false" />
-                        <label for="noKGP"> NIE </label>
+                        <input 
+                            placeholder="Link do trasy" 
+                            type="text" 
+                            rows={5}
+                            style={{width: "100%"}}
+                            value={this.state.form.mapaTurystycznaLink} 
+                            onChange={(event)=>this.handleMapChange(event)} />
                         <p></p>
                         <Select 
-                            placeholder="Pasmo górskie" 
+                            placeholder="Region" 
+                            onChange={this.handleChangeRegions} 
+                            options={this.state.regions} 
+                        />
+                        <p></p>
+                        <Select 
+                            isMulti
+                            placeholder="Pasma górskie" 
                             onChange={this.handleChangeMountainRange} 
                             options={this.state.mRanges} 
                         />
                         <p></p>
                         <Select 
                             isMulti
-                            placeholder="Wycieczki" 
-                            onChange={this.handleChangeTrips} 
-                            options={this.state.trips} 
+                            placeholder="Szczyty" 
+                            onChange={this.handleChangePeaks} 
+                            options={this.state.peaks} 
                         />
                     </Modal.Body>
                     <Modal.Footer>
@@ -146,7 +180,7 @@ export class TripsAddModal extends React.Component {
                         </Button>
                         <Button 
                             variant="primary"
-                            onClick={()=> this.props.addNewPeak(this.state.form.name, this.state.form.description, this.state.form.height, this.state.form.isKGP, this.state.form.mountainRange, this.state.form.trips)}>
+                            onClick={()=> this.props.addNewPeak(this.state.form.name, this.state.form.description, this.state.form.height, this.state.form.isKGP, this.state.form.mountainRanges, this.state.form.trips)}>
                                 Dodaj
                         </Button>
                     </Modal.Footer>

@@ -25,9 +25,9 @@ export class AttractionsAddModal extends React.Component {
                 const regions = res.data;
                 const regionOptions = 
                     regions.sort(function compare(a, b) {
-                        if (a.id<b.id)
+                        if (a.name<b.name)
                             return -1
-                        if (a.id>b.id)
+                        if (a.name>b.name)
                             return 1
                         return 0
                     })
@@ -61,7 +61,7 @@ export class AttractionsAddModal extends React.Component {
                         <Modal.Title>Dodawanie</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Co chcesz dodać:</p>
+                        <p>Dodaj atrakcję:</p>
                         <input 
                             placeholder="Nazwa" 
                             type="text" 

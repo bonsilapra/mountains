@@ -119,8 +119,22 @@
 }
 
 .list-no-bullets-inside {
-    list-style-type: circle;
-    margin-left: 0.2rem; 
+    padding: 0; 
+    margin: 0; 
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.list-no-bullets-center {
+    list-style-type: none;
+    padding: 0; 
+    margin: 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .icon {

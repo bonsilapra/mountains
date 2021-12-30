@@ -272,11 +272,10 @@ export default function Regions() {
                             <p style={{whiteSpace: "pre-wrap"}}>{region.description}</p>
                             <h5>Pasma górskie w regionie:</h5>
                                 {region.mountainRanges.map((mountainRange) =>
-                                <ul className="list-no-bullets">
-                                    <li><Link to={"/mountainRange/" + mountainRange.id} className="link">
-                                        <b>{mountainRange.name}</b></Link> - {mountainRange.description}</li>
-                                    <li> Szczyty:
-                                        <ul className="list-bullets-inside"> 
+                                <ul className="list-no-bullets-center">
+                                    <li style={{fontSize: "18px"}}><Link to={"/mountainRange/" + mountainRange.id} className="link">
+                                        <b>{mountainRange.name}</b></Link>: </li>
+                                        <ul className="list-no-bullets-inside"> 
                                             {mountainRange.peaks.sort(function compare(a, b) {
                                                 if (a.name<b.name)
                                                     return -1
@@ -286,12 +285,21 @@ export default function Regions() {
                                                 })
                                             .map((peak) =>
                                                 <li>{peak.isKGP==true ? (
-                                                    <b> {peak.name} </b>
-                                                ): <b style={{fontWeight: 400}}>{peak.name}</b>}
+                                                    <Link 
+                                                    className='link'
+                                                    to={"/peaks"}
+                                                    state={{ peakId: peak.id }}
+                                                    >
+                                                        <b> {peak.name} </b></Link>
+                                                ): 
+                                                <Link 
+                                                    className='link'
+                                                    to={"/peaks"}
+                                                    state={{ peakId: peak.id }}
+                                                    ><b style={{fontWeight: 400}}>{peak.name}</b></Link>}
                                                 </li>
                                             )}
                                         </ul>
-                                    </li>                                   
                                 </ul>)}
                             <h5>Atrakcje w regionie:</h5>
                             {region.attractions != null && region.attractions.length != 0 ? 

@@ -22,7 +22,7 @@ export class HomePage extends React.Component {
                 <p>
                     Zapraszam do zapoznania się z trasami wycieczek w góry na terenie Polski.
                 </p>
-                <Link to="/mountainRanges">
+                <Link to="/trips">
                     <MyButton
                     buttonStyle='btn--primary'
                     buttonSize='btn--large'

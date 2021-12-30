@@ -41,7 +41,10 @@ class TripsWrapped extends React.Component {
     }
 
     sortKGP (element) {
-        return element.peaks.isKGP==true
+        return element.peaks.filter(check => {
+            return check.isKGP==true
+        }).length != 0
+
     }
 
     sortAll (element) {
@@ -53,13 +56,14 @@ class TripsWrapped extends React.Component {
     }
 
 
-    addNewTrip (name, description, mapaTurystycznaLink, region, mountainRange, peaks) {
+    addNewTrip (name, description, date, mapaTurystycznaLink, region, mountainRanges, peaks) {
         myAxios.post(`trip`,{
             name: name,
             description: description,
+            date: date,
             mapaTurystycznaLink: mapaTurystycznaLink,
             region: region,
-            mountainRange: mountainRange,
+            mountainRanges: mountainRanges,
             peaks: peaks
         })
         .then((response) => {
@@ -71,14 +75,15 @@ class TripsWrapped extends React.Component {
         })
     }
 
-    editTrip (name, description, mapaTurystycznaLink, region, mountainRange, peaks) {
+    editTrip (name, description, date, mapaTurystycznaLink, region, mountainRanges, peaks) {
         myAxios.put(`trip`,{
             id: this.state.editId,
             name: name,
             description: description,
+            date: date,
             mapaTurystycznaLink: mapaTurystycznaLink,
             region: region,
-            mountainRange: mountainRange,
+            mountainRanges: mountainRanges,
             peaks: peaks
         })
         .then((response) => {
@@ -145,7 +150,7 @@ class TripsWrapped extends React.Component {
                             <i style= {{"paddingLeft":"10px"}} class="fas fa-mountain"></i>                   
                     </MyButton>
                     <MyButton 
-                        buttonStyle='btn--primary'
+                        buttonStyle='btn--primary-padding'
                         onClick={() => this.setSortFunction(this.sortKGP)}>
                             Korona Gór Polski 
                             <i style= {{"paddingLeft":"10px"}} class="fas fa-mountain"></i>                   
@@ -171,7 +176,7 @@ class TripsWrapped extends React.Component {
                         <hr className="rounded" />
 
                             <h4 id={"wycieczka" + wycieczki.id}>
-                                {wycieczki.name} - {moment(wycieczki.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}
+                                <Link className="link" to={"/trip/" + wycieczki.id}> {wycieczki.name} - {moment(wycieczki.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</Link>
                             </h4>
                             {wycieczki.region &&
                             <h6> Region: <Link 
@@ -182,27 +187,39 @@ class TripsWrapped extends React.Component {
                                 </Link>
                             </h6>
                             }
-                            <p style={{whiteSpace: "pre-wrap"}}>{wycieczki.description}</p>
-                            <div style={{ maxWidth:"900px", width: "90%", overflow: "hidden" }}><iframe src={wycieczki.mapaTurystycznaLink} height="680" frameborder="0" style={{width: "100%", border:0}}></iframe></div>
-                            {wycieczki.mountainRanges != null ? 
-                                (wycieczki.mountainRanges.map((mRange) =>
-                                    <p style={{marginBottom: "0px"}}>Pasmo górskie: <Link to={"/mountainRange/"+ mRange.id}
-                                    state={{ mountainRangeId: mRange.id }}
-                                    >
-                                        {mRange.name}
-                                    </Link> 
-                                    </p>)) 
-                            : (<p></p>)}
-                            {wycieczki.peaks != null ? 
-                                (wycieczki.peaks.map((peak) =>
-                                    <p style={{marginBottom: "0px"}}>Szczyt: <Link to={"/peaks/"}
-                                    state={{ peakId: peak.id}}
-                                    >
-                                        {peak.name}
-                                    </Link> 
-                                    </p>)) 
-                            : (<p></p>)}
-                            <br />
+
+                            Pasmo górskie:
+                            <ul className="list-no-bullets-center">
+                                {wycieczki.mountainRanges != null ? 
+                                    (wycieczki.mountainRanges.map((mRange) =>
+                                        <li>
+                                            <Link to={"/mountainRange/"+ mRange.id}
+                                            state={{ mountainRangeId: mRange.id }}
+                                            className="link"
+                                            >
+                                                {mRange.name}
+                                            </Link> 
+                                        </li>
+                                    ))
+                                : (<p></p>)}
+                            </ul>
+
+                            Szczyt:
+                            <ul className="list-no-bullets-center">
+                                {wycieczki.peaks != null ? 
+                                    (wycieczki.peaks.map((peak) =>
+                                        <li>
+                                            <Link to={"/peaks/"}
+                                                state={{ peakId: peak.id }}
+                                                className="link"
+                                            >
+                                                {peak.name}
+                                            </Link> 
+                                        </li>
+                                    ))
+                                : (<p></p>)}
+                            </ul>
+
                             {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                             <section className='title-with-buttons'>
                                 <div>      

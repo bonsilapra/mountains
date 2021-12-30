@@ -12,12 +12,13 @@ export class TripsEditModal extends React.Component {
             form: {
                 name: "", 
                 description: "", 
-                height: "", 
-                isKGP: "", 
-                mountainRange: null,
-                trips: null
+                date: "",
+                mapaTurystycznaLink: "", 
+                region: "", 
+                mountainRanges: [],
+                peaks: []
             },
-            regions: [],
+            trips: [],
         }
     }
 
@@ -58,6 +59,24 @@ export class TripsEditModal extends React.Component {
                 this.setState({ trips: tripOptions });
                 }
             )
+        myAxios.get(`region`)
+            .then(res => {
+                console.log(res);
+                const regions = res.data;
+                const regionOptions = 
+                    regions.sort(function compare(a, b) {
+                        if (a.name<b.name)
+                            return -1
+                        if (a.name>b.name)
+                            return 1
+                        return 0
+                    })
+                    .map((region) => {
+                        return {value: region, label: region.name }
+                    })
+                this.setState({ regions: regionOptions });
+                }
+            )
     }
 
     handleNameChange(event) {
@@ -68,26 +87,38 @@ export class TripsEditModal extends React.Component {
         this.setState({form: {...this.state.form, description: event.target.value}});
     }
 
-    handleHeightChange(event) {
-        this.setState({form: {...this.state.form, height: event.target.value}});
+    handleDateChange(event) {
+        this.setState({form: {...this.state.form, date: event.target.value}});
     }
 
-    handleKGPChange(event) {
-        this.setState({form: {...this.state.form, isKGP: event.target.value}});
+    handleChangeRegions = (selectedOption) => {
+        this.setState({form: {...this.state.form, region: selectedOption.value }});
+    }
+
+    handleMapChange(event) {
+        this.setState({form: {...this.state.form, mapaTurystycznaLink: event.target.value}});
     }
 
     handleChangeMountainRange = (selectedOption) => {
-        this.setState({form: {...this.state.form, mountainRange: selectedOption.value }});
+        this.setState({form: {...this.state.form, mountainRanges: selectedOption.value }});
     }
 
-    handleChangeTrips = (selectedOptions) => {
-        this.setState({form: {...this.state.form, trips: selectedOptions.value }});
+    handleChangePeaks = (selectedOptions) => {
+        this.setState({form: {...this.state.form, peaks: selectedOptions.value }});
     }
 
 
+    
     componentDidUpdate(prevProps) {
         if (this.props.editObject != null && prevProps.show !== this.props.show) {
-            this.setState({ form: { name: this.props.editObject.name, description: this.props.editObject.description, height: this.props.editObject.height, isKGP: this.props.editObject.isKGP, mountainRange: this.props.editObject.mountainRange, trips: this.props.editObject.trips } })
+            this.setState({ form: { 
+                name: this.props.editObject.name, 
+                description: this.props.editObject.description, 
+                date: this.props.editObject.date, 
+                mapaTurystycznaLink: this.props.editObject.mapaTurystycznaLink, 
+                region: this.props.editObject.region, 
+                mountainRanges: this.props.editObject.mountainRanges, 
+                peaks: this.props.editObject.peaks } })
         }
     }
 
@@ -99,7 +130,7 @@ export class TripsEditModal extends React.Component {
                         <Modal.Title>Edytowanie</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Co chcesz zmienić:</p>
+                        <p>Edytuj wycieczkę:</p>
                         <input 
                             placeholder="Nazwa" 
                             type="text" 
@@ -114,24 +145,33 @@ export class TripsEditModal extends React.Component {
                             value={this.state.form.description} 
                             onChange={(event)=>this.handleDescriptionChange(event)} />
                         <p></p>
+                        <label for="data">Data wycieczki:</label>
                         <input 
-                            placeholder="Wysokość" 
-                            type="number" 
+                            id="data"
+                            type="date" 
                             style={{width: "100%"}}
-                            value={this.state.form.height} 
+                            value={this.state.form.date} 
+                            onChange={(event)=>this.handleDateChange(event)} />
+                        <p></p>
+                        <input 
+                            placeholder="Link do trasy" 
+                            type="text" 
+                            style={{width: "100%"}}
+                            value={this.state.form.mapaTurystycznaLink} 
                             onChange={(event)=>this.handleHeightChange(event)} />
                         <p></p>
-                        <p>Czy szczyt należy do Korony Gór Polski</p>
-                        <input type="radio" id="isKGP" name="isKGP" value="true" />
-                        <label for="isKGP"> TAK </label><br />
-                        <input type="radio" id="noKGP" name="isKGP" value="false" />
-                        <label for="noKGP"> NIE </label>
+                        <Select 
+                            placeholder="Region" 
+                            onChange={this.handleChangeRegions} 
+                            options={this.state.regions} 
+                            value={this.state.form.region != null ? { label: this.state.form.region.name, value: this.state.form.region } : { label: "", value:null}}
+                        />
                         <p></p>
                         <Select 
                             placeholder="Pasmo górskie" 
                             onChange={this.handleChangeMountainRange} 
                             options={this.state.mRanges} 
-                            value={this.state.form.mountainRange != null ? { label: this.state.form.mountainRange.name, value: this.state.form.mountainRange } : { label: "", value:null}}
+                            value={this.state.form.mountainRanges != null ? { label: this.state.form.mountainRanges.name, value: this.state.form.mountainRanges } : { label: "", value:null}}
                         />
                         <p></p>
                         <Select 
