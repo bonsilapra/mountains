@@ -212,52 +212,55 @@ class PeaksWrapped extends React.Component {
                     .sort(this.state.orderFunction)
                     .map((szczyty) =>
                         <>
-                        <hr className="rounded" />
-                            <h4 id={"szczyt" + szczyty.id}>
-                                <b>{szczyty.name}</b> - {szczyty.height} m n.p.m.
-                            </h4>
-                            <p>{szczyty.description}</p>
-                            {szczyty.mountainRange != null ? 
-                            (<p>Pasmo górskie: <Link to={"/mountainRange/"+ szczyty.mountainRange.id}
-                                state={{ mountainRangeId: szczyty.mountainRange.id }}
-                                >
-                                    {szczyty.mountainRange.name}
-                                </Link> </p>) : (<p></p>)}
-                            <p style={{whiteSpace: "pre-wrap"}}>{szczyty.description}</p>
-                            Wycieczki:
-                            <ul className="list-no-bullets-center">
-                                {szczyty.trips != null ? 
-                                    (szczyty.trips.map((trip) =>
-                                        <li>
-                                            <Link to={"/trip/" + trip.id}
-                                            state={{ tripId: trip.id}}
-                                            className="link"
-                                            >
-                                                {trip.name} - {moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}
-                                            </Link> 
-                                        </li>
-                                    
-                                    ))
-                                : (<p></p>)}
-                            </ul>
-                            {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                            <section className='title-with-buttons'>
-                                <div>      
-                                    <MyButton 
-                                        buttonStyle='btn--primary'
-                                        onClick={(event)=> {this.setEdit(true, szczyty.id, szczyty); event.stopPropagation()}}>
-                                            <i class="fas fa-pen"></i>                   
-                                    </MyButton>
-                                </div>
-                                <div>
-                                    <MyButton 
-                                        buttonStyle='btn--outline'
-                                        onClick={(event)=> {this.setShow(true, szczyty.id); event.stopPropagation()}}>
-                                            <i class="fas fa-trash"></i>                   
-                                    </MyButton>
+                            <div id={"szczyt" + szczyty.id} className="page">
+                                <hr className="rounded" />
+                                <h4>
+                                    <b>{szczyty.name}</b> - {szczyty.height} m n.p.m.
+                                </h4>
+                                <p>{szczyty.description}</p>
+                                {szczyty.mountainRange != null ? 
+                                (<p>Pasmo górskie: <Link to={"/mountainRange/"+ szczyty.mountainRange.id}
+                                    state={{ mountainRangeId: szczyty.mountainRange.id }}
+                                    className="link"
+                                    >
+                                        {szczyty.mountainRange.name}
+                                    </Link> </p>) : (<p></p>)}
+                                <p style={{whiteSpace: "pre-wrap"}}>{szczyty.description}</p>
+                                Wycieczki:
+                                <ul className="list-no-bullets-center">
+                                    {szczyty.trips != null ? 
+                                        (szczyty.trips.map((trip) =>
+                                            <li>
+                                                <Link to={"/trip/" + trip.id}
+                                                state={{ tripId: trip.id}}
+                                                className="link"
+                                                >
+                                                    {trip.name} - {moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}
+                                                </Link> 
+                                            </li>
+                                        
+                                        ))
+                                    : (<p></p>)}
+                                </ul>
+                                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                                <section className='title-with-buttons'>
+                                    <div>      
+                                        <MyButton 
+                                            buttonStyle='btn--primary'
+                                            onClick={(event)=> {this.setEdit(true, szczyty.id, szczyty); event.stopPropagation()}}>
+                                                <i class="fas fa-pen"></i>                   
+                                        </MyButton>
                                     </div>
-                            </section>
-                            }
+                                    <div>
+                                        <MyButton 
+                                            buttonStyle='btn--outline'
+                                            onClick={(event)=> {this.setShow(true, szczyty.id); event.stopPropagation()}}>
+                                                <i class="fas fa-trash"></i>                   
+                                        </MyButton>
+                                        </div>
+                                </section>
+                                }
+                            </div>
                         </>
                     )
                 }
