@@ -1,4 +1,5 @@
 import React, { useState, useEffect }  from 'react'
+import { BackgroundFromBE } from '../commons/BackgroundFromBE';
 import { useParams } from "react-router-dom"
 import myAxios from '../../utilities/myAxios';
 import { Link } from 'react-router-dom'
@@ -33,6 +34,12 @@ export function MountainRange() {
 
     return (
         <>
+            {/* {mountainRange.photo &&
+                mountainRange.filter(((MRange) => {
+                    return (MRange.photo.name == MRange.name) ,
+                        <BackgroundFromBE image= {MRange.photo.photo64}/>
+                }))
+            } */}
             <div className="page-title">
                 PASMA GÓRSKIE
             </div>
