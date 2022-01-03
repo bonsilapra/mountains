@@ -28,7 +28,7 @@
 
 .page-container {
     min-height: 70vh;
-    width: 70%;
+    width: 70vw;
     max-width: 1000px;
     display: flex;
     flex-direction: column;
@@ -163,7 +163,7 @@
     transition: 0.2s ease-out;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1010px) {
 
     .page-title {
         height: 120px;

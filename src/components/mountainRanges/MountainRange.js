@@ -34,12 +34,9 @@ export function MountainRange() {
 
     return (
         <>
-            {/* {mountainRange.photo &&
-                mountainRange.filter(((MRange) => {
-                    return (MRange.photo.name == MRange.name) ,
-                        <BackgroundFromBE image= {MRange.photo.photo64}/>
-                }))
-            } */}
+            {mountainRange.photo &&
+                <BackgroundFromBE image= {mountainRange.photo}/>
+            }
             <div className="page-title">
                 PASMA GÓRSKIE
             </div>

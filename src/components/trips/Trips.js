@@ -241,10 +241,10 @@ class TripsWrapped extends React.Component {
                         </>
                     )
                 }
-                
+                <hr className="rounded" />
+
                 {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                 <>
-                <hr className="rounded" />
                 <h5 style={{marginBottom: "15px"}}>  
                     <MyButton 
                         buttonStyle='btn--primary'
