@@ -316,7 +316,7 @@ export default function Regions() {
                                 <MyButton 
                                     buttonStyle='btn--primary'
                                     onClick={scrollToTop}>
-                                        <i class="fas fa-arrow-up"></i>                   
+                                        <i className="fas fa-arrow-up"></i>                   
                                 </MyButton>
                             </div>
                         </div>

@@ -33,7 +33,7 @@ function Footer() {
                 <div className='social-media-wrap'>
                     <div>
                         <Link to='/' className='social-logo'>
-                            <i class='fas fa-mountain' />
+                            <i className='fas fa-mountain' />
                         </Link>
                     </div>
                     <small className='website-rights'>Copyright© {new Date().getFullYear()} - All Rigths reserved</small>
@@ -43,7 +43,7 @@ function Footer() {
                             aria-label='Instagram'
                             className='social-logo'
                         >
-                            <i class='fab fa-instagram' />
+                            <i className='fab fa-instagram' />
                         </a>
                     </div>
                 </div>

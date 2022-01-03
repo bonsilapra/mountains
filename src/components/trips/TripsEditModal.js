@@ -16,7 +16,7 @@ export class TripsEditModal extends React.Component {
                 description: "", 
                 date: "",
                 mapaTurystycznaLink: "", 
-                region: "", 
+                region: null,
                 mountainRanges: [],
                 peaks: []
             },
@@ -25,7 +25,7 @@ export class TripsEditModal extends React.Component {
     }
 
     componentDidMount() {
-        myAxios.get(`mountainRange`)
+        myAxios.get(`mountainRange/list`)
             .then(res => {
                 console.log(res);
                 const mRanges = res.data;
@@ -116,7 +116,7 @@ export class TripsEditModal extends React.Component {
             this.setState({ form: { 
                 name: this.props.editObject.name, 
                 description: this.props.editObject.description, 
-                date: this.props.editObject.date, 
+                date: moment(this.props.editObject.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD"),
                 mapaTurystycznaLink: this.props.editObject.mapaTurystycznaLink, 
                 region: this.props.editObject.region, 
                 mountainRanges: this.props.editObject.mountainRanges, 
@@ -160,7 +160,7 @@ export class TripsEditModal extends React.Component {
                             type="text" 
                             style={{width: "100%"}}
                             value={this.state.form.mapaTurystycznaLink} 
-                            onChange={(event)=>this.handleHeightChange(event)} />
+                            onChange={(event)=>this.handleMapChange(event)} />
                         <p></p>
                         <Select 
                             placeholder="Region" 
@@ -204,7 +204,7 @@ export class TripsEditModal extends React.Component {
                             onClick={()=> this.props.editTrip(
                                 this.state.form.name, 
                                 this.state.form.description, 
-                                this.state.form.date, 
+                                moment(this.state.form.date, "YYYY-MM-DD").format("DD-MM-YYYY hh:mm:ss"), 
                                 this.state.form.mapaTurystycznaLink, 
                                 this.state.form.region, 
                                 this.state.form.mountainRanges, 

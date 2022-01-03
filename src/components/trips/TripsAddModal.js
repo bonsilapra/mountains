@@ -16,7 +16,7 @@ export class TripsAddModal extends React.Component {
                 description: "", 
                 date: "",
                 mapaTurystycznaLink: "", 
-                region: "", 
+                region: null, 
                 mountainRanges: [],
                 peaks: []
             },
@@ -26,7 +26,7 @@ export class TripsAddModal extends React.Component {
 
 
     componentDidMount() {
-        myAxios.get(`mountainRange`)
+        myAxios.get(`mountainRange/list`)
             .then(res => {
                 console.log(res);
                 const mRanges = res.data;

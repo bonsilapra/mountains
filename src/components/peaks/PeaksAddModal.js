@@ -24,7 +24,7 @@ export class PeaksAddModal extends React.Component {
     }
 
     componentDidMount() {
-        myAxios.get(`mountainRange`)
+        myAxios.get(`mountainRange/`)
             .then(res => {
                 console.log(res);
                 const mRanges = res.data;

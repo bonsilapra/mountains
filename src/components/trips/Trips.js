@@ -44,7 +44,6 @@ class TripsWrapped extends React.Component {
         return element.peaks.filter(check => {
             return check.isKGP==true
         }).length != 0
-
     }
 
     sortAll (element) {
@@ -120,7 +119,7 @@ class TripsWrapped extends React.Component {
             .then(res => {
                 const trip = res.data;
                 this.setState({ trip });
-                setTimeout(() => this.setState(document.getElementById("wycieczka" + this.props.location.state.tripId).scrollIntoView()), 1000)
+                // setTimeout(() => this.setState(document.getElementById("wycieczka" + this.props.location.state.tripId).scrollIntoView()), 1000)
                 }
             )
             .catch(error => {
@@ -147,13 +146,13 @@ class TripsWrapped extends React.Component {
                         buttonStyle='btn--primary'
                         onClick={() => this.setSortFunction(this.sortAll)}>
                             Wszystkie 
-                            <i style= {{"paddingLeft":"10px"}} class="fas fa-mountain"></i>                   
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
                     </MyButton>
                     <MyButton 
                         buttonStyle='btn--primary-padding'
                         onClick={() => this.setSortFunction(this.sortKGP)}>
                             Korona Gór Polski 
-                            <i style= {{"paddingLeft":"10px"}} class="fas fa-mountain"></i>                   
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
                     </MyButton>
                 </div>
                 {this.state.isError &&
@@ -173,8 +172,7 @@ class TripsWrapped extends React.Component {
                     })
                     .map((wycieczki) =>
                         <>
-                        <hr className="rounded" />
-
+                            <hr className="rounded" />
                             <h4 id={"wycieczka" + wycieczki.id}>
                                 <Link className="link" to={"/trip/" + wycieczki.id}> {wycieczki.name} - {moment(wycieczki.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</Link>
                             </h4>
@@ -192,7 +190,7 @@ class TripsWrapped extends React.Component {
                             <ul className="list-no-bullets-center">
                                 {wycieczki.mountainRanges != null ? 
                                     (wycieczki.mountainRanges.map((mRange) =>
-                                        <li>
+                                        <li key={mRange.id}>
                                             <Link to={"/mountainRange/"+ mRange.id}
                                             state={{ mountainRangeId: mRange.id }}
                                             className="link"
@@ -208,7 +206,7 @@ class TripsWrapped extends React.Component {
                             <ul className="list-no-bullets-center">
                                 {wycieczki.peaks != null ? 
                                     (wycieczki.peaks.map((peak) =>
-                                        <li>
+                                        <li key={peak.id}>
                                             <Link to={"/peaks/"}
                                                 state={{ peakId: peak.id }}
                                                 className="link"
@@ -226,14 +224,14 @@ class TripsWrapped extends React.Component {
                                     <MyButton 
                                         buttonStyle='btn--primary'
                                         onClick={(event)=> {this.setEdit(true, wycieczki.id, wycieczki); event.stopPropagation()}}>
-                                            <i class="fas fa-pen"></i>                   
+                                            <i className="fas fa-pen"></i>                   
                                     </MyButton>
                                 </div>
                                 <div>
                                     <MyButton 
                                         buttonStyle='btn--outline'
                                         onClick={(event)=> {this.setShow(true, wycieczki.id); event.stopPropagation()}}>
-                                            <i class="fas fa-trash"></i>                   
+                                            <i className="fas fa-trash"></i>                   
                                     </MyButton>
                                     </div>
                             </section>
@@ -250,7 +248,7 @@ class TripsWrapped extends React.Component {
                         buttonStyle='btn--primary'
                         onClick={()=> this.setAdd(true)}>
                             DODAJ 
-                            <i style= {{"paddingLeft":"10px"}} class="fas fa-plus"></i>                   
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
                     </MyButton>
                 </h5>
                 </>

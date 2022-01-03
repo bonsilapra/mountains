@@ -57,10 +57,9 @@ export function MountainRange() {
                 </h6>
                 }
                 <h4>Szczyty</h4>
-                <p style={{whiteSpace: "pre-wrap"}}>
                 {mountainRange.peaks &&
                 <>
-                <ul className="list-no-bullets">
+                <ul className="list-no-bullets" style={{whiteSpace: "pre-wrap"}}>
                     {mountainRange.peaks.sort(function compare(a, b) {
                             if (a.height>b.height)
                                 return -1
@@ -86,7 +85,6 @@ export function MountainRange() {
                 </ul>
                 </>
                 }
-                </p>
                 <h4>Wycieczki</h4>
                 {mountainRange.trips != null && mountainRange.trips.length != 0 ?
                     (

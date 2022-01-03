@@ -43,10 +43,10 @@ export class About extends React.Component {
                     aria-label='Instagram'
                     className='icon'
                 >
-                    <i class='fab fa-instagram' />
+                    <i className='fab fa-instagram' />
                 </a>
                 <p>
-                    Znajdują się tam zdjęcia z różnych wycieczek (nie tylko w góry), moich cudownych piesków - Rico i Lusi oraz kilka innych :)
+                    Znajdują się tam zdjęcia z różnych wycieczek (nie tylko w góry), moich cudownych piesków - Rico i Lusi oraz kilka innych :&#41;
                 </p>
             </div>
             </>

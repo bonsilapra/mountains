@@ -24,7 +24,7 @@ export class PeaksEditModal extends React.Component {
     }
 
     componentDidMount() {
-        myAxios.get(`mountainRange`)
+        myAxios.get(`mountainRange/list`)
             .then(res => {
                 console.log(res);
                 const mRanges = res.data;
@@ -98,7 +98,6 @@ export class PeaksEditModal extends React.Component {
                 isKGP: this.props.editObject.isKGP, 
                 mountainRange: this.props.editObject.mountainRange, 
                 trips: this.props.editObject.trips } })
-        console.log(this.props)
         }
     }
 
@@ -133,10 +132,22 @@ export class PeaksEditModal extends React.Component {
                             onChange={(event)=>this.handleHeightChange(event)} />
                         <p></p>
                         <p>Czy szczyt należy do Korony Gór Polski</p>
-                        <input type="radio" id="isKGP" name="isKGP" value="true" />
+                        {this.state.form.isKGP && 
+                        this.state.form.isKGP==true ?
+                        (<>
+                        <input type="radio" id="isKGP" name="isKGP" value="true" onChange={(event)=>this.handleKGPChange(event)} checked/>
                         <label for="isKGP"> TAK </label><br />
-                        <input type="radio" id="noKGP" name="isKGP" value="false" />
+                        <input type="radio" id="noKGP" name="isKGP" value="false" onChange={(event)=>this.handleKGPChange(event)} />
                         <label for="noKGP"> NIE </label>
+                        </>)
+                        :
+                        (<>
+                        <input type="radio" id="isKGP" name="isKGP" value="true" onChange={(event)=>this.handleKGPChange(event)}/>
+                        <label for="isKGP"> TAK </label><br />
+                        <input type="radio" id="noKGP" name="isKGP" value="false" onChange={(event)=>this.handleKGPChange(event)} checked/>
+                        <label for="noKGP"> NIE </label>
+                        </>)
+                        }
                         <p></p>
                         <Select 
                             placeholder="Pasmo górskie" 

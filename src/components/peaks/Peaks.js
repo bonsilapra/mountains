@@ -170,13 +170,13 @@ class PeaksWrapped extends React.Component {
                         buttonStyle='btn--primary'
                         onClick={() => this.setSortFunction(this.sortAll)}>
                             Wszystkie 
-                            <i style= {{"paddingLeft":"10px"}} class="fas fa-mountain"></i>                   
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
                     </MyButton>
                     <MyButton 
                         buttonStyle='btn--primary'
                         onClick={() => this.setSortFunction(this.sortKGP)}>
                             Korona Gór Polski 
-                            <i style= {{"paddingLeft":"10px"}} class="fas fa-mountain"></i>                   
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
                     </MyButton>
                 </div>
                 <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
@@ -247,14 +247,14 @@ class PeaksWrapped extends React.Component {
                                         <MyButton 
                                             buttonStyle='btn--primary'
                                             onClick={(event)=> {this.setEdit(true, szczyty.id, szczyty); event.stopPropagation()}}>
-                                                <i class="fas fa-pen"></i>                   
+                                                <i className="fas fa-pen"></i>                   
                                         </MyButton>
                                     </div>
                                     <div>
                                         <MyButton 
                                             buttonStyle='btn--outline'
                                             onClick={(event)=> {this.setShow(true, szczyty.id); event.stopPropagation()}}>
-                                                <i class="fas fa-trash"></i>                   
+                                                <i className="fas fa-trash"></i>                   
                                         </MyButton>
                                         </div>
                                 </section>
@@ -272,7 +272,7 @@ class PeaksWrapped extends React.Component {
                         buttonStyle='btn--primary'
                         onClick={()=> this.setAdd(true)}>
                             DODAJ 
-                            <i style= {{"paddingLeft":"10px"}} class="fas fa-plus"></i>                   
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
                     </MyButton>
                 </h5>
                 </>
