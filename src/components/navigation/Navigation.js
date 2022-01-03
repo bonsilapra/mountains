@@ -44,7 +44,7 @@ function Navigation() {
                 console.log(error);
             })
 
-        const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
+    const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
 
     return (
         <div>
