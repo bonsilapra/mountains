@@ -3,6 +3,8 @@ import myAxios from '../../utilities/myAxios'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import Select from 'react-select';
+import moment from 'moment';
+
 
 export class TripsAddModal extends React.Component {
 
@@ -101,12 +103,12 @@ export class TripsAddModal extends React.Component {
         this.setState({form: {...this.state.form, mapaTurystycznaLink: event.target.value}});
     }
 
-    handleChangeMountainRange = (selectedOption) => {
-        this.setState({form: {...this.state.form, mountainRanges: selectedOption.value }});
+    handleChangeMountainRange = (selectedOptions) => {
+        this.setState({form: {...this.state.form, mountainRanges: selectedOptions.map((option) => option.value) }});
     }
 
     handleChangePeaks = (selectedOptions) => {
-        this.setState({form: {...this.state.form, peaks: selectedOptions.value }});
+        this.setState({form: {...this.state.form, peaks: selectedOptions.map((option) => option.value) }});
     }
 
 
@@ -180,7 +182,15 @@ export class TripsAddModal extends React.Component {
                         </Button>
                         <Button 
                             variant="primary"
-                            onClick={()=> this.props.addNewPeak(this.state.form.name, this.state.form.description, this.state.form.height, this.state.form.isKGP, this.state.form.mountainRanges, this.state.form.trips)}>
+                            onClick={()=> this.props.addNewTrip(
+                                this.state.form.name, 
+                                this.state.form.description, 
+                                moment(this.state.form.date, "YYYY-MM-DD").format("DD-MM-YYYY hh:mm:ss"), 
+                                this.state.form.mapaTurystycznaLink, 
+                                this.state.form.region, 
+                                this.state.form.mountainRanges, 
+                                this.state.form.peaks
+                            )}>
                                 Dodaj
                         </Button>
                     </Modal.Footer>

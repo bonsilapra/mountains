@@ -3,7 +3,6 @@ import backgroundImage from '../../images/mountainRangesBackground.jpg';
 import { Background } from '../commons/Background';
 import myAxios from '../../utilities/myAxios';
 import Alert from 'react-bootstrap/Alert';
-
 import { MRPostcard } from './MRPostcard'
 import './MountainRanges.css';
 import '../commons/Commons.css';

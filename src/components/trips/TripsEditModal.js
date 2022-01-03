@@ -3,6 +3,8 @@ import myAxios from '../../utilities/myAxios'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import Select from 'react-select';
+import moment from 'moment';
+
 
 export class TripsEditModal extends React.Component {
 
@@ -29,9 +31,9 @@ export class TripsEditModal extends React.Component {
                 const mRanges = res.data;
                 const mRangeOptions = 
                     mRanges.sort(function compare(a, b) {
-                        if (a.id<b.id)
+                        if (a.name<b.name)
                             return -1
-                        if (a.id>b.id)
+                        if (a.name>b.name)
                             return 1
                         return 0
                     })
@@ -41,22 +43,22 @@ export class TripsEditModal extends React.Component {
                 this.setState({ mRanges: mRangeOptions });
                 }
             )
-        myAxios.get(`trip`)
+        myAxios.get(`peak`)
             .then(res => {
                 console.log(res);
-                const trips = res.data;
-                const tripOptions = 
-                    trips.sort(function compare(a, b) {
-                        if (a.date<b.date)
+                const peaks = res.data;
+                const peakOptions = 
+                    peaks.sort(function compare(a, b) {
+                        if (a.name<b.name)
                             return -1
-                        if (a.date>b.date)
+                        if (a.name>b.jname)
                             return 1
                         return 0
                     })
-                    .map((trip) => {
-                        return {value: trip, label: trip.name }
+                    .map((peak) => {
+                        return {value: peak, label: peak.name }
                     })
-                this.setState({ trips: tripOptions });
+                this.setState({ peaks: peakOptions });
                 }
             )
         myAxios.get(`region`)
@@ -99,12 +101,12 @@ export class TripsEditModal extends React.Component {
         this.setState({form: {...this.state.form, mapaTurystycznaLink: event.target.value}});
     }
 
-    handleChangeMountainRange = (selectedOption) => {
-        this.setState({form: {...this.state.form, mountainRanges: selectedOption.value }});
+    handleChangeMountainRange = (selectedOptions) => {
+        this.setState({form: {...this.state.form, mountainRanges: selectedOptions.map((option) => option.value)}});
     }
 
     handleChangePeaks = (selectedOptions) => {
-        this.setState({form: {...this.state.form, peaks: selectedOptions.value }});
+        this.setState({form: {...this.state.form, peaks: selectedOptions.map((option) => option.value) }});
     }
 
 
@@ -168,18 +170,27 @@ export class TripsEditModal extends React.Component {
                         />
                         <p></p>
                         <Select 
+                            isMulti
                             placeholder="Pasmo górskie" 
                             onChange={this.handleChangeMountainRange} 
                             options={this.state.mRanges} 
-                            value={this.state.form.mountainRanges != null ? { label: this.state.form.mountainRanges.name, value: this.state.form.mountainRanges } : { label: "", value:null}}
+                            value={this.state.form.mountainRanges != null ? this.state.form.mountainRanges.map((MRange) => {
+                                return { label: MRange.name, value: MRange }
+                            })
+                            : ({ label: "", value:null})}
+                            getOptionValue={option => option.value.id}
                         />
                         <p></p>
                         <Select 
                             isMulti
-                            placeholder="Wycieczki" 
-                            onChange={this.handleChangeTrips} 
-                            options={this.state.trips} 
-                            value={this.state.form.trips != null ? { label: this.state.form.trips.name, value: this.state.form.trips } : { label: "", value:null}}
+                            placeholder="Szczyty" 
+                            onChange={this.handleChangePeaks} 
+                            options={this.state.peaks} 
+                            value={(this.state.form.peaks != null ) ? this.state.form.peaks.map((peak) => {
+                                return { label: peak.name, value: peak } 
+                            })
+                            : []}
+                            getOptionValue={option => option.value.id}
                         />
                     </Modal.Body>
                     <Modal.Footer>
@@ -190,7 +201,15 @@ export class TripsEditModal extends React.Component {
                         </Button>
                         <Button 
                             variant="primary"
-                            onClick={()=> this.props.editAttraction(this.state.form.name,this.state.form.description,this.state.form.region)}>
+                            onClick={()=> this.props.editTrip(
+                                this.state.form.name, 
+                                this.state.form.description, 
+                                this.state.form.date, 
+                                this.state.form.mapaTurystycznaLink, 
+                                this.state.form.region, 
+                                this.state.form.mountainRanges, 
+                                this.state.form.peaks
+                            )}>
                                 Zapisz
                         </Button>
                     </Modal.Footer>
@@ -199,5 +218,4 @@ export class TripsEditModal extends React.Component {
         );
     }
 }
-
 

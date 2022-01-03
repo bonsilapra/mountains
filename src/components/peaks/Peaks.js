@@ -217,7 +217,6 @@ class PeaksWrapped extends React.Component {
                                 <h4>
                                     <b>{szczyty.name}</b> - {szczyty.height} m n.p.m.
                                 </h4>
-                                <p>{szczyty.description}</p>
                                 {szczyty.mountainRange != null ? 
                                 (<p>Pasmo górskie: <Link to={"/mountainRange/"+ szczyty.mountainRange.id}
                                     state={{ mountainRangeId: szczyty.mountainRange.id }}

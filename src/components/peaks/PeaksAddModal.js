@@ -84,7 +84,7 @@ export class PeaksAddModal extends React.Component {
     }
 
     handleChangeTrips = (selectedOptions) => {
-        this.setState({form: {...this.state.form, trips: selectedOptions.value }});
+        this.setState({form: {...this.state.form, trips: selectedOptions.map((option) => option.value) }});
     }
 
 
@@ -147,7 +147,14 @@ export class PeaksAddModal extends React.Component {
                         </Button>
                         <Button 
                             variant="primary"
-                            onClick={()=> this.props.addNewPeak(this.state.form.name, this.state.form.description, this.state.form.height, this.state.form.isKGP, this.state.form.mountainRange, this.state.form.trips)}>
+                            onClick={()=> this.props.addNewPeak(
+                                this.state.form.name, 
+                                this.state.form.description, 
+                                this.state.form.height, 
+                                this.state.form.isKGP, 
+                                this.state.form.mountainRange, 
+                                this.state.form.trips
+                            )}>
                                 Dodaj
                         </Button>
                     </Modal.Footer>

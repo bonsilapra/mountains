@@ -62,6 +62,7 @@ export class PeaksEditModal extends React.Component {
             )
     }
 
+
     handleNameChange(event) {
         this.setState({form:{...this.state.form, name:event.target.value}});
     }
@@ -83,7 +84,8 @@ export class PeaksEditModal extends React.Component {
     }
 
     handleChangeTrips = (selectedOptions) => {
-        this.setState({form: {...this.state.form, trips: selectedOptions.value }});
+        console.log(selectedOptions)
+        this.setState({form: {...this.state.form, trips: selectedOptions.map((option) => option.value)}});
     }
 
 
@@ -148,7 +150,11 @@ export class PeaksEditModal extends React.Component {
                             placeholder="Wycieczki" 
                             onChange={this.handleChangeTrips} 
                             options={this.state.trips} 
-                            value={this.state.form.trips != null ? { label: this.state.form.trips.name, value: this.state.form.trips } : { label: "", value:null}}
+                            value={(this.state.form.trips != null ) ? this.state.form.trips.map((trip) => {
+                                return { label: trip.name, value: trip } 
+                            })
+                                : []}
+                            getOptionValue={option => option.value.id}
                         />
                     </Modal.Body>
                     <Modal.Footer>
@@ -159,7 +165,13 @@ export class PeaksEditModal extends React.Component {
                         </Button>
                         <Button 
                             variant="primary"
-                            onClick={()=> this.props.editAttraction(this.state.form.name,this.state.form.description,this.state.form.region)}>
+                            onClick={()=> this.props.editPeak(this.state.form.name,
+                                this.state.form.description,
+                                this.state.form.height,
+                                this.state.form.isKGP,
+                                this.state.form.mountainRange,
+                                this.state.form.trips
+                            )}>
                                 Zapisz
                         </Button>
                     </Modal.Footer>
@@ -168,5 +180,3 @@ export class PeaksEditModal extends React.Component {
         );
     }
 }
-
-
