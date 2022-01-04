@@ -7,24 +7,22 @@ import { MyButton } from '../button/MyButton';
 import { TripsEditModal } from './TripsEditModal';
 import './Trips.css';
 import '../commons/Commons.css';
+import  FileUpload  from './FileUpload';
 
-export function Trip() {
-    
+export function Trip() {   
 
     window.scrollTo(0,0)
-    
 
     let params = useParams();
 
-    const [trip, setMRange]=useState([]);
+    const [trip, setTrip]=useState([]);
     const [isError, setError]=useState(false);
-
 
     useEffect(()=> {
         myAxios.get(`trip/${params.id}`)
             .then(res => {
                 const trip = res.data;
-                setMRange(trip);
+                setTrip(trip);
                 }
             )
             .catch(error => {
@@ -33,14 +31,15 @@ export function Trip() {
             )
     },[]);
 
-    const [edit, editId, editObject, setEdit] = useState(false);
-    const [trip2, setTrip] = useState();
+    const [edit, setEdit] = useState(false);
 
-
+    const toggleEditModal =(toggle) => {
+        setEdit(toggle);
+    }
 
     const editTrip = (name, description, date, mapaTurystycznaLink, region, mountainRanges, peaks) => {
         myAxios.put(`trip`,{
-            id: editId,
+            id: trip.id,
             name: name,
             description: description,
             date: date,
@@ -50,18 +49,13 @@ export function Trip() {
             peaks: peaks
         })
         .then((response) => {
-            setTrip(trip2.map((element) => {
-                if (element.id !== editId) {
-                    return element
-                } else {return response.data}
-                
-            }))
+            setTrip(response.data);
             setEdit(false);
         })
         .catch((error) => {
             console.log(error);
         })
-    };
+    }
 
     const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
 
@@ -73,12 +67,14 @@ export function Trip() {
             {trip &&
             <div className='page-container' >        
                 <h1>{trip.name} - {moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</h1>
-                <MyButton 
-                    buttonStyle='btn--primary'
-                    onClick={(event)=> {setEdit(true, trip.id, trip); event.stopPropagation()}}>
-                        <i className="fas fa-pen"></i>                   
-                </MyButton>
-                <TripsEditModal show={edit} setOpen={setEdit} editTrip={editTrip} editObject={editObject}/>
+                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                    <MyButton 
+                        buttonStyle='btn--primary'
+                        onClick={(event)=> {toggleEditModal(true); event.stopPropagation()}}>
+                            <i className="fas fa-pen"></i>                   
+                    </MyButton>
+                }
+                <TripsEditModal show={edit} setOpen={setEdit} editObject={trip} editTrip={editTrip}/>
                 <h4>Opis</h4>
                 <p style={{whiteSpace: "pre-wrap"}}>
                     {trip.description}
@@ -141,6 +137,8 @@ export function Trip() {
                     </ul>
                 </>
                 }
+                <h4>Zdjęcia</h4>
+                {/* <FileUpload /> */}
                 <br />
             </div>
             }

@@ -121,9 +121,9 @@ export class PeaksAddModal extends React.Component {
                             onChange={(event)=>this.handleHeightChange(event)} />
                         <p></p>
                         <p>Czy szczyt należy do Korony Gór Polski</p>
-                        <input type="radio" id="isKGP" name="isKGP" value="true" />
+                        <input type="radio" id="isKGP" name="isKGP" value={true} />
                         <label for="isKGP"> TAK </label><br />
-                        <input type="radio" id="noKGP" name="isKGP" value="false" />
+                        <input type="radio" id="noKGP" name="isKGP" value={false} />
                         <label for="noKGP"> NIE </label>
                         <p></p>
                         <Select 

@@ -132,22 +132,12 @@ export class PeaksEditModal extends React.Component {
                             onChange={(event)=>this.handleHeightChange(event)} />
                         <p></p>
                         <p>Czy szczyt należy do Korony Gór Polski</p>
-                        {this.state.form.isKGP && 
-                        this.state.form.isKGP==true ?
-                        (<>
-                        <input type="radio" id="isKGP" name="isKGP" value="true" onChange={(event)=>this.handleKGPChange(event)} checked/>
+                        <>
+                        <input type="radio" id="isKGP" name="isKGP" value={true} onChange={(event)=>this.handleKGPChange(event)} defaultChecked={this.state.form.isKGP}/>
                         <label for="isKGP"> TAK </label><br />
-                        <input type="radio" id="noKGP" name="isKGP" value="false" onChange={(event)=>this.handleKGPChange(event)} />
+                        <input type="radio" id="noKGP" name="isKGP" value={false} onChange={(event)=>this.handleKGPChange(event)} defaultChecked={!this.state.form.isKGP} />
                         <label for="noKGP"> NIE </label>
-                        </>)
-                        :
-                        (<>
-                        <input type="radio" id="isKGP" name="isKGP" value="true" onChange={(event)=>this.handleKGPChange(event)}/>
-                        <label for="isKGP"> TAK </label><br />
-                        <input type="radio" id="noKGP" name="isKGP" value="false" onChange={(event)=>this.handleKGPChange(event)} checked/>
-                        <label for="noKGP"> NIE </label>
-                        </>)
-                        }
+                        </>
                         <p></p>
                         <Select 
                             placeholder="Pasmo górskie" 
