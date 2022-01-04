@@ -88,7 +88,6 @@ export class PeaksEditModal extends React.Component {
         this.setState({form: {...this.state.form, trips: selectedOptions.map((option) => option.value)}});
     }
 
-
     componentDidUpdate(prevProps) {
         if (this.props.editObject != null && prevProps.show !== this.props.show) {
             this.setState({ form: { 

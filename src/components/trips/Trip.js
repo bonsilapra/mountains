@@ -8,6 +8,8 @@ import { TripsEditModal } from './TripsEditModal';
 import './Trips.css';
 import '../commons/Commons.css';
 import  FileUpload  from './FileUpload';
+import ImageGallery from 'react-image-gallery';
+
 
 export function Trip() {   
 
@@ -56,6 +58,8 @@ export function Trip() {
             console.log(error);
         })
     }
+
+    let okPhotos = []
 
     const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
 
@@ -138,7 +142,12 @@ export function Trip() {
                 </>
                 }
                 <h4>Zdjęcia</h4>
-                {/* <FileUpload /> */}
+                {/* {trip.photos.map((photo) =>
+                    okPhotos = "data:image/jpeg;base64,${photo.photo64}"
+                        )} */}
+                <ImageGallery items={trip.photos} />
+                 {/* `url("data:image/jpeg;base64,${this.props.image.photo64}")`} */}
+                <FileUpload />
                 <br />
             </div>
             }
