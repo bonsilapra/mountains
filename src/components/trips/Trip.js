@@ -9,7 +9,7 @@ import './Trips.css';
 import '../commons/Commons.css';
 import  FileUpload  from './FileUpload';
 import ImageGallery from 'react-image-gallery';
-
+import "react-image-gallery/styles/css/image-gallery.css";
 
 export function Trip() {   
 
@@ -19,12 +19,16 @@ export function Trip() {
 
     const [trip, setTrip]=useState([]);
     const [isError, setError]=useState(false);
+    const [photos, setPhotos]=useState([]);
 
     useEffect(()=> {
         myAxios.get(`trip/${params.id}`)
             .then(res => {
                 const trip = res.data;
                 setTrip(trip);
+                setPhotos(trip.photos.map((photo) => {
+                    return {original: `data:image/jpeg;base64,${photo.photo64}`}
+                }));
                 }
             )
             .catch(error => {
@@ -58,8 +62,6 @@ export function Trip() {
             console.log(error);
         })
     }
-
-    let okPhotos = []
 
     const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
 
@@ -141,13 +143,15 @@ export function Trip() {
                     </ul>
                 </>
                 }
-                <h4>Zdjęcia</h4>
-                {/* {trip.photos.map((photo) =>
-                    okPhotos = "data:image/jpeg;base64,${photo.photo64}"
-                        )} */}
-                <ImageGallery items={trip.photos} />
-                 {/* `url("data:image/jpeg;base64,${this.props.image.photo64}")`} */}
-                <FileUpload />
+                {photos && photos.length !=0 &&
+                <div>
+                    <h4>Zdjęcia</h4>
+                    <ImageGallery items={photos} />
+                </div>
+                }
+                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                <FileUpload tripId={trip.id}/>
+                }
                 <br />
             </div>
             }

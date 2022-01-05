@@ -39,7 +39,6 @@ class TripsWrapped extends React.Component {
     setEdit(edit, id, obj) {
         this.setState({ edit: edit, editId: id, editObject:obj})
     }
-
     sortKGP (element) {
         return element.peaks.filter(check => {
             return check.isKGP==true
