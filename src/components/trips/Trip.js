@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react'
+import React, { useState, useEffect, useRef }  from 'react'
 import { useParams } from "react-router-dom"
 import myAxios from '../../utilities/myAxios';
 import { Link } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { MyButton } from '../button/MyButton';
 import { TripsEditModal } from './TripsEditModal';
 import './Trips.css';
 import '../commons/Commons.css';
-import  FileUpload  from './FileUpload';
+import FileUpload  from './FileUpload';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 
@@ -27,7 +27,8 @@ export function Trip() {
                 const trip = res.data;
                 setTrip(trip);
                 setPhotos(trip.photos.map((photo) => {
-                    return {original: `data:image/jpeg;base64,${photo.photo64}`}
+                    return {original: `data:image/jpeg;base64,${photo.photo64}`,
+                            id: photo.id}
                 }));
                 }
             )
@@ -62,6 +63,24 @@ export function Trip() {
             console.log(error);
         })
     }
+
+    const imageGalleryRef = useRef(null);
+
+    function deleteImage() {
+        imageGalleryRef.current.getCurrentIndex();
+        myAxios.delete(`trip/`+ trip.id + `/photo/` + photos[imageGalleryRef.current.getCurrentIndex()].id)
+        .then((response) => {
+            setPhotos(
+                photos.filter(element => {
+                    return element.id!==photos[imageGalleryRef.current.getCurrentIndex()].id
+                })
+            );
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
 
     const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
 
@@ -144,10 +163,23 @@ export function Trip() {
                 </>
                 }
                 {photos && photos.length !=0 &&
-                <div>
+                <>
                     <h4>Zdjęcia</h4>
-                    <ImageGallery items={photos} />
+                <div style={{opacity:"100%", marginBottom: "15px"}}>
+                    <ImageGallery 
+                        items={photos} 
+                        showBullets={true}
+                        ref={imageGalleryRef}
+                    />
                 </div>
+                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                <MyButton 
+                    buttonStyle='btn--outline'
+                    onClick={()=> deleteImage()}>
+                        <i className="fas fa-trash"></i>                   
+                </MyButton>
+                }
+                </>
                 }
                 {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                 <FileUpload tripId={trip.id}/>

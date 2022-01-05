@@ -41,7 +41,7 @@ class FileUpload extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='title-with-buttons' style={{marginTop: "15px"}}>
                 <label>Wgraj zdjęcie</label>
                 <input type="file"
                     onChange={(event) => this.choosePhoto(event)} 

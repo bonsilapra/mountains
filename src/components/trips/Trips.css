@@ -4,6 +4,18 @@
     align-items: center;
 }
 
+.title-with-buttons-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.photos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 
 @media screen and (max-width: 400px) {
@@ -14,5 +26,9 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+    }
+
+    .photos {
+        flex-direction: column;
     }
 }

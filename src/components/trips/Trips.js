@@ -218,7 +218,7 @@ class TripsWrapped extends React.Component {
                             </ul>
 
                             {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                            <section className='title-with-buttons'>
+                            <section className='title-with-buttons-admin'>
                                 <div>      
                                     <MyButton 
                                         buttonStyle='btn--primary'
@@ -232,7 +232,7 @@ class TripsWrapped extends React.Component {
                                         onClick={(event)=> {this.setShow(true, wycieczki.id); event.stopPropagation()}}>
                                             <i className="fas fa-trash"></i>                   
                                     </MyButton>
-                                    </div>
+                                </div>
                             </section>
                             }
                         </>
