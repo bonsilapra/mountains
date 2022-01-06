@@ -122,6 +122,17 @@ export class Attractions extends React.Component {
                     Backend nie działa!!!
                     </Alert>
                 }
+                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                <h5 style={{marginBottom: "15px"}}>                    
+                    <MyButton 
+                        buttonStyle='btn--primary'
+                        onClick={()=> this.setAdd(true)}>
+                            DODAJ 
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
+                    </MyButton>
+                </h5>
+                }
+                <hr className="rounded" />
                 {this.state.attraction &&
                 this.state.attraction.sort(function compare(a, b) {
                     if (a.name<b.name)
@@ -163,16 +174,6 @@ export class Attractions extends React.Component {
                             <hr className="rounded" />
                         </>
                     )
-                }
-                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                <h5 style={{marginBottom: "15px"}}>                    
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={()=> this.setAdd(true)}>
-                            DODAJ 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
-                    </MyButton>
-                </h5>
                 }
             </div>
             <AttractionsAddModal show={this.state.add} setOpen={this.setAdd} addNewAttraction={this.addNewAttraction}/>
