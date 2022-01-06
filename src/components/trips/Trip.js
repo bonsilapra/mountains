@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import moment from 'moment';
 import { MyButton } from '../button/MyButton';
 import { TripsEditModal } from './TripsEditModal';
+import { BackgroundFromBE } from '../commons/BackgroundFromBE';
 import './Trips.css';
 import '../commons/Commons.css';
 import FileUpload  from './FileUpload';
@@ -26,10 +27,19 @@ export function Trip() {
             .then(res => {
                 const trip = res.data;
                 setTrip(trip);
-                setPhotos(trip.photos.map((photo) => {
+                setPhotos(trip.photos.sort(function compare(a, b) {
+                    if (a.name<b.name)
+                        return -1
+                    if (a.name>b.name)
+                        return 1
+                    return 0
+                    })
+                    .map((photo) => {
                     return {original: `data:image/jpeg;base64,${photo.photo64}`,
                             id: photo.id}
                 }));
+                console.log(trip.photos[0])
+
                 }
             )
             .catch(error => {
@@ -86,6 +96,9 @@ export function Trip() {
 
     return (
         <>
+            {trip.photos && trip.photos.length!=0 &&
+            <BackgroundFromBE image={trip.photos[Math.floor(Math.random() * trip.photos.length)]}/>
+            }
             <div className="page-title">
                 WYCIECZKI
             </div>

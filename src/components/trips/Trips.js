@@ -159,6 +159,18 @@ class TripsWrapped extends React.Component {
                     Backend nie działa!!!
                     </Alert>
                 }
+                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                <>
+                <h5>  
+                    <MyButton 
+                        buttonStyle='btn--primary'
+                        onClick={()=> this.setAdd(true)}>
+                            DODAJ 
+                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
+                    </MyButton>
+                </h5>
+                </>
+                }
                 {this.state.trip &&
                 this.state.trip
                     .filter(this.state.sortFunction)
@@ -239,19 +251,6 @@ class TripsWrapped extends React.Component {
                     )
                 }
                 <hr className="rounded" />
-
-                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                <>
-                <h5 style={{marginBottom: "15px"}}>  
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={()=> this.setAdd(true)}>
-                            DODAJ 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
-                    </MyButton>
-                </h5>
-                </>
-                }
             </div>
             <TripsAddModal show={this.state.add} setOpen={this.setAdd} addNewTrip={this.addNewTrip}/>
             <TripsEditModal show={this.state.edit} setOpen={this.setEdit} editTrip={this.editTrip} editObject={this.state.editObject}/>
