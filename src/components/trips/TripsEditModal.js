@@ -152,7 +152,7 @@ export class TripsEditModal extends React.Component {
                             value={this.state.form.date} 
                             onChange={(event)=>this.handleDateChange(event)} />
                         <p></p>
-                        <label>Trasa bez prfoliu wysokościowego!</label>
+                        <label>Trasa bez profilu wysokościowego!</label>
                         <input 
                             placeholder="Link do trasy" 
                             type="text" 
