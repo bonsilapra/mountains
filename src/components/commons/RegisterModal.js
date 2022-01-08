@@ -91,7 +91,6 @@ export class RegisterModal extends React.Component {
             password: this.state.form.password
         })
             .then((response) => {
-                console.log(response);
                 alert("udało się!");
                 this.props.setOpen(false);
 

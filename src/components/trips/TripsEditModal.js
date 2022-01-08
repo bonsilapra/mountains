@@ -27,7 +27,6 @@ export class TripsEditModal extends React.Component {
     componentDidMount() {
         myAxios.get(`mountainRange/list`)
             .then(res => {
-                console.log(res);
                 const mRanges = res.data;
                 const mRangeOptions = 
                     mRanges.sort(function compare(a, b) {
@@ -45,7 +44,6 @@ export class TripsEditModal extends React.Component {
             )
         myAxios.get(`peak`)
             .then(res => {
-                console.log(res);
                 const peaks = res.data;
                 const peakOptions = 
                     peaks.sort(function compare(a, b) {
@@ -63,7 +61,6 @@ export class TripsEditModal extends React.Component {
             )
         myAxios.get(`region`)
             .then(res => {
-                console.log(res);
                 const regions = res.data;
                 const regionOptions = 
                     regions.sort(function compare(a, b) {

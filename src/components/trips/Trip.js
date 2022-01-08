@@ -38,8 +38,6 @@ export function Trip() {
                     return {original: `data:image/jpeg;base64,${photo.photo64}`,
                             id: photo.id}
                 }));
-                console.log(trip.photos[0])
-
                 }
             )
             .catch(error => {

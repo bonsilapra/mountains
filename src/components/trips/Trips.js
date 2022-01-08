@@ -19,7 +19,7 @@ class TripsWrapped extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {trip: [], isError: false, show: false, add: false, edit: false, editId:"", id:"", editObject:{}, sortFunction: this.sortAll}
+        this.state = {trip: [], isError: false, show: false, add: false, edit: false, editId:"", id:"", editObject:{}, filterFunction: this.sortAll}
         this.setAdd = this.setAdd.bind(this);
         this.setEdit = this.setEdit.bind(this);
         this.addNewTrip = this.addNewTrip.bind(this);
@@ -49,8 +49,8 @@ class TripsWrapped extends React.Component {
         return true
     }
 
-    setSortFunction (sortFunction) {
-        this.setState({ sortFunction: sortFunction})
+    setFilterFunction (filterFunction) {
+        this.setState({ filterFunction: filterFunction})
     }
 
 
@@ -143,13 +143,13 @@ class TripsWrapped extends React.Component {
                 <div style={{marginBottom: "15px"}} className='title-with-buttons'>                    
                     <MyButton 
                         buttonStyle='btn--primary'
-                        onClick={() => this.setSortFunction(this.sortAll)}>
+                        onClick={() => this.setFilterFunction(this.sortAll)}>
                             Wszystkie 
                             <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
                     </MyButton>
                     <MyButton 
                         buttonStyle='btn--primary-padding'
-                        onClick={() => this.setSortFunction(this.sortKGP)}>
+                        onClick={() => this.setFilterFunction(this.sortKGP)}>
                             Korona Gór Polski 
                             <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
                     </MyButton>
@@ -173,11 +173,11 @@ class TripsWrapped extends React.Component {
                 }
                 {this.state.trip &&
                 this.state.trip
-                    .filter(this.state.sortFunction)
-                    .sort(function compare(a, b) {
-                    if (a.date<b.date)
+                    .filter(this.state.filterFunction)
+                    .sort(function check(a, b) {
+                    if (moment(a.date, "DD-MM-YYYY hh:mm:ss") < moment(b.date, "DD-MM-YYYY hh:mm:ss"))
                         return 1
-                    if (a.date>b.date)
+                    if (moment(a.date, "DD-MM-YYYY hh:mm:ss") > moment(b.date, "DD-MM-YYYY hh:mm:ss"))
                         return -1
                     return 0
                     })

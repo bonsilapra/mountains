@@ -50,7 +50,7 @@ export class Attractions extends React.Component {
             this.setAdd(false);
         })
         .catch((error) => {
-            console.log(error);
+
         })
     }
 
@@ -71,7 +71,7 @@ export class Attractions extends React.Component {
             this.setEdit(false);
         })
         .catch((error) => {
-            console.log(error);
+
         })
     }
 

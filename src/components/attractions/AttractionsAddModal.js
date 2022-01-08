@@ -21,7 +21,6 @@ export class AttractionsAddModal extends React.Component {
     componentDidMount() {
         myAxios.get(`region`)
             .then(res => {
-                console.log(res);
                 const regions = res.data;
                 const regionOptions = 
                     regions.sort(function compare(a, b) {

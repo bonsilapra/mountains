@@ -72,11 +72,9 @@ export class LoginModal extends React.Component {
             password: this.state.form.password,
         })
             .then((response) => {
-                console.log(response);
                 sessionStorage.clear();
                 sessionStorage.setItem('userLogin', JSON.stringify(response.data));
                 let userLogin = JSON.parse(sessionStorage.getItem('userLogin'));
-                console.log(userLogin)
                 this.props.setOpen(false);
                 window.location.reload()
             })

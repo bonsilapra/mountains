@@ -26,7 +26,6 @@ export class PeaksEditModal extends React.Component {
     componentDidMount() {
         myAxios.get(`mountainRange/list`)
             .then(res => {
-                console.log(res);
                 const mRanges = res.data;
                 const mRangeOptions = 
                     mRanges.sort(function compare(a, b) {
@@ -44,7 +43,6 @@ export class PeaksEditModal extends React.Component {
             )
         myAxios.get(`trip`)
             .then(res => {
-                console.log(res);
                 const trips = res.data;
                 const tripOptions = 
                     trips.sort(function compare(a, b) {
@@ -84,7 +82,6 @@ export class PeaksEditModal extends React.Component {
     }
 
     handleChangeTrips = (selectedOptions) => {
-        console.log(selectedOptions)
         this.setState({form: {...this.state.form, trips: selectedOptions.map((option) => option.value)}});
     }
 
