@@ -19,7 +19,7 @@ class TripsWrapped extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {trip: [], isError: false, show: false, add: false, edit: false, editId:"", id:"", editObject:{}, filterFunction: this.sortAll}
+        this.state = {trip: [], isError: false, show: false, add: false, edit: false, editId:"", id:"", editObject:{}, filterFunction: this.sortAll, orderFunction: this.orderDate}
         this.setAdd = this.setAdd.bind(this);
         this.setEdit = this.setEdit.bind(this);
         this.addNewTrip = this.addNewTrip.bind(this);
@@ -51,6 +51,26 @@ class TripsWrapped extends React.Component {
 
     setFilterFunction (filterFunction) {
         this.setState({ filterFunction: filterFunction})
+    }
+
+    orderDate (a,b) {
+        if (moment(a.date, "DD-MM-YYYY hh:mm:ss") < moment(b.date, "DD-MM-YYYY hh:mm:ss"))
+            return 1
+        if (moment(a.date, "DD-MM-YYYY hh:mm:ss") > moment(b.date, "DD-MM-YYYY hh:mm:ss"))
+            return -1
+        return 0
+    }
+    
+    orderAbc (a,b) {
+        return a.name.localeCompare(b.name)
+    }
+
+    orderRegion (a,b) {
+        return a.region.name.localeCompare(b.region.name)
+    }
+
+    setOrderFunction (orderFunction) {
+        this.setState({orderFunction: orderFunction})
     }
 
 
@@ -154,6 +174,23 @@ class TripsWrapped extends React.Component {
                             <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
                     </MyButton>
                 </div>
+                <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
+                    <MyButton 
+                        buttonStyle='btn--primary'
+                        onClick={() => this.setOrderFunction(this.orderAbc)}>
+                            Alfabetycznie 
+                    </MyButton>
+                    <MyButton 
+                        buttonStyle='btn--primary'
+                        onClick={() => this.setOrderFunction(this.orderDate)}>
+                            Wg dat
+                    </MyButton>
+                    <MyButton 
+                        buttonStyle='btn--primary'
+                        onClick={() => this.setOrderFunction(this.orderRegion)}>
+                            Wg regionów
+                    </MyButton>
+                </div>
                 {this.state.isError &&
                     <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
                     Backend nie działa!!!
@@ -174,17 +211,11 @@ class TripsWrapped extends React.Component {
                 {this.state.trip &&
                 this.state.trip
                     .filter(this.state.filterFunction)
-                    .sort(function check(a, b) {
-                    if (moment(a.date, "DD-MM-YYYY hh:mm:ss") < moment(b.date, "DD-MM-YYYY hh:mm:ss"))
-                        return 1
-                    if (moment(a.date, "DD-MM-YYYY hh:mm:ss") > moment(b.date, "DD-MM-YYYY hh:mm:ss"))
-                        return -1
-                    return 0
-                    })
+                    .sort(this.state.orderFunction)
                     .map((wycieczki) =>
                         <>
                             <hr className="rounded" />
-                            <h4 id={"wycieczka" + wycieczki.id}>
+                            <h4 id={"wycieczka" + wycieczki.id} style={{marginTop: "0"}}>
                                 <Link className="link" to={"/trip/" + wycieczki.id}> {wycieczki.name} - {moment(wycieczki.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</Link>
                             </h4>
                             {wycieczki.region &&
@@ -197,6 +228,8 @@ class TripsWrapped extends React.Component {
                             </h6>
                             }
 
+                            {wycieczki.mountainRanges.length != 0 &&
+                            <>
                             Pasmo górskie:
                             <ul className="list-no-bullets-center">
                                 {wycieczki.mountainRanges != null ? 
@@ -212,7 +245,11 @@ class TripsWrapped extends React.Component {
                                     ))
                                 : (<p></p>)}
                             </ul>
+                            </>
+                            }
 
+                            {wycieczki.peaks.length != 0 &&
+                            <>
                             Szczyt:
                             <ul className="list-no-bullets-center">
                                 {wycieczki.peaks != null ? 
@@ -228,6 +265,8 @@ class TripsWrapped extends React.Component {
                                     ))
                                 : (<p></p>)}
                             </ul>
+                            </>
+                            }
 
                             {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                             <section className='title-with-buttons-admin'>

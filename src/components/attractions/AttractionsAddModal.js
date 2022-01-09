@@ -36,7 +36,18 @@ export class AttractionsAddModal extends React.Component {
                 this.setState({ regions: regionOptions });
                 }
             )
+    }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.show == true && prevProps.show == false) {
+            this.setState({
+                form: {
+                    name: "", 
+                    description: "", 
+                    region: null
+                }
+            })
+        }
     }
 
     handleNameChange(event) {

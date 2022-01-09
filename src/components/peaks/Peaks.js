@@ -237,6 +237,8 @@ class PeaksWrapped extends React.Component {
                                         {szczyty.mountainRange.name}
                                     </Link> </p>) : (<p></p>)}
                                 <p style={{whiteSpace: "pre-wrap"}}>{szczyty.description}</p>
+                                {szczyty.trips.length != 0 &&
+                                <>
                                 Wycieczki:
                                 <ul className="list-no-bullets-center">
                                     {szczyty.trips != null ? 
@@ -253,6 +255,8 @@ class PeaksWrapped extends React.Component {
                                         ))
                                     : (<p></p>)}
                                 </ul>
+                                </>
+                                }
                                 {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                                 <section className='title-with-buttons'>
                                     <div>      

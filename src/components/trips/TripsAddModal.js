@@ -31,11 +31,7 @@ export class TripsAddModal extends React.Component {
                 const mRanges = res.data;
                 const mRangeOptions = 
                     mRanges.sort(function compare(a, b) {
-                        if (a.name<b.name)
-                            return -1
-                        if (a.name>b.name)
-                            return 1
-                        return 0
+                        return a.name.localeCompare(b.name)
                     })
                     .map((mRange) => {
                         return {value: mRange, label: mRange.name }
@@ -48,11 +44,7 @@ export class TripsAddModal extends React.Component {
                 const peaks = res.data;
                 const peakOptions = 
                     peaks.sort(function compare(a, b) {
-                        if (a.name<b.name)
-                            return -1
-                        if (a.name>b.name)
-                            return 1
-                        return 0
+                        return a.name.localeCompare(b.name)
                     })
                     .map((peak) => {
                         return {value: peak, label: peak.name }
@@ -65,11 +57,7 @@ export class TripsAddModal extends React.Component {
                 const regions = res.data;
                 const regionOptions = 
                     regions.sort(function compare(a, b) {
-                        if (a.name<b.name)
-                            return -1
-                        if (a.name>b.name)
-                            return 1
-                        return 0
+                        return a.name.localeCompare(b.name)
                     })
                     .map((region) => {
                         return {value: region, label: region.name }
@@ -77,6 +65,22 @@ export class TripsAddModal extends React.Component {
                 this.setState({ regions: regionOptions });
                 }
             )
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.show == true && prevProps.show == false) {
+            this.setState({
+                form: {
+                    name: "", 
+                    description: "", 
+                    date: "",
+                    mapaTurystycznaLink: "", 
+                    region: null, 
+                    mountainRanges: [],
+                    peaks: []
+                }
+            })
+        }
     }
 
 

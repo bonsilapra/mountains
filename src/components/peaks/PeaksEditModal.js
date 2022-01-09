@@ -29,11 +29,7 @@ export class PeaksEditModal extends React.Component {
                 const mRanges = res.data;
                 const mRangeOptions = 
                     mRanges.sort(function compare(a, b) {
-                        if (a.name<b.name)
-                            return -1
-                        if (a.name>b.name)
-                            return 1
-                        return 0
+                        return a.name.localeCompare(b.name)
                     })
                     .map((mRange) => {
                         return {value: mRange, label: mRange.name }
@@ -46,10 +42,10 @@ export class PeaksEditModal extends React.Component {
                 const trips = res.data;
                 const tripOptions = 
                     trips.sort(function compare(a, b) {
-                        if (a.date<b.date)
-                            return -1
-                        if (a.date>b.date)
+                        if (moment(a.date, "DD-MM-YYYY hh:mm:ss") < moment(b.date, "DD-MM-YYYY hh:mm:ss"))
                             return 1
+                        if (moment(a.date, "DD-MM-YYYY hh:mm:ss") > moment(b.date, "DD-MM-YYYY hh:mm:ss"))
+                            return -1
                         return 0
                     })
                     .map((trip) => {

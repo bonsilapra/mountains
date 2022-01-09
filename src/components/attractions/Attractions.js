@@ -143,7 +143,7 @@ export class Attractions extends React.Component {
                     })
                     .map((atrakcje) =>
                         <>
-                            <h4>
+                            <h4 style={{marginTop: "0"}}>
                                 {atrakcje.name}   
                             </h4>
                             <p style={{whiteSpace: "pre-wrap"}}>{atrakcje.description}</p>

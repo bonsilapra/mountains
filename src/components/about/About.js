@@ -17,14 +17,15 @@ export class About extends React.Component {
                 <h1>Cześć!</h1>
                 <h4>O mnie</h4>
                 <p>
-                    Mam na imię Asia i aktualnie mieszakm w Poznaniu. W wolnym czasie najchętniej jeżdzę w góry. Ze względu na odległość najczęściej bywam w okolicach Ziemi kłodzkiej i w Karkonoszach, ale najbardziej lubię odwiedzać Tatry.
-                    Od maja 2020 r. zaczęłam zdobywać szczyty z Korony Gór Polski. 
+                    Mam na imię Asia i aktualnie mieszakm w Poznaniu. W wolnym czasie najchętniej jeżdzę w góry z moim chłopakiem Pawłem. Ze względu na odległość najczęściej bywamy w okolicach Ziemi kłodzkiej i w Karkonoszach, ale najbardziej lubię odwiedzać Tatry.
+                    Od maja 2020 r. zaczęliśmy razem zdobywać szczyty z Korony Gór Polski. 
                 </p>
                 <p>
-                    Oprócz opisów tras na szczyty z Korony Gór Polski przedstawiam również trasy na inne  szczyty w polskich górach oraz do ciekawych miejsc, na które natrafiłam. Informacje na stronie będę uzupełniać w miarę odbywania kolejnych wycieczek.
+                    Oprócz opisów tras na szczyty z Korony Gór Polski przedstawiam również trasy na inne szczyty w polskich górach oraz do ciekawych miejsc, na które natrafiliśmy. Informacje na stronie będę uzupełniać w miarę odbywania kolejnych wycieczek. Opisy i wyznaczone trasy są przedstawione takie, jakie były w dniu naszej wycieczki - nie wprowadzam ewnetualnych zmian, które pojawiły się na szlaku później.
                 </p>
                 <p>
-                    Wszystkie publikowane tu zdjęcia oraz opisy są mojego autorstwa. Kopiowanie i rozpowszechnianie ich bez zgody jest zabronione.
+                    Wszystkie publikowane tu zdjęcia oraz opisy są mojego autorstwa. Kopiowanie i rozpowszechnianie ich bez zgody jest zabronione. Trasy wycieczek udostępnione są za pomocą portalu: 
+                    <a href="https://mapa-turystyczna.pl/" target='blank'> Mapa Turystyczna </a>
 
                 </p>
                 <h4>Kilka słów o tym projekcie</h4>
