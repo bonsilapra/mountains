@@ -116,6 +116,7 @@ export class Attractions extends React.Component {
             </div>
             <div className='page-container' >
                 <h1>Miejsca warte zobaczenia</h1>
+                <p>Poniżej zamieszczam listę ciekawych miejsc, które odwiedziliśmy przy okazji wycieczek w góry. Wymienione są tylko te atrakcje, które zobaczyliśmy osobiście, w poszczególnych regionach jest dużo więcej interesujących lokalizacji. </p>
                 <br />
                 {this.state.isError &&
                     <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
