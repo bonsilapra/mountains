@@ -259,11 +259,7 @@ export default function Regions() {
                 </div>
                 <h4>{area}</h4>
                     {regions.sort(function compare(a, b) {
-                        if (a.name<b.name)
-                            return -1
-                        if (a.name>b.name)
-                            return 1
-                        return 0
+                        return a.name.localeCompare(b.name)
                         })
                     .map((region) =>
                         <div id={"region" + region.id} className="page">
@@ -277,11 +273,7 @@ export default function Regions() {
                                         <b>{mountainRange.name}</b></Link>: </li>
                                         <ul className="list-no-bullets-inside"> 
                                             {mountainRange.peaks.sort(function compare(a, b) {
-                                                if (a.name<b.name)
-                                                    return -1
-                                                if (a.name>b.name)
-                                                    return 1
-                                                return 0
+                                                return a.name.localeCompare(b.name)
                                                 })
                                             .map((peak) =>
                                                 <li>{peak.isKGP==true ? (

@@ -48,11 +48,8 @@ export class MountainRanges extends React.Component {
                 <div className='cards-container'>
                     {this.state.mountainRange &&
                     this.state.mountainRange.sort(function compare(a, b) {
-                        if (a.name<b.name)
-                            return -1
-                        if (a.name>b.name)
-                            return 1
-                        return 0
+                        return a.name.localeCompare(b.name)
+
                         })
                         .map((mRange) =>
                                 <MRPostcard id={mRange.id} peak={mRange.peaks} name={mRange.name} img={mRange.photo}/>

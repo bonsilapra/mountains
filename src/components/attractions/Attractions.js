@@ -136,11 +136,7 @@ export class Attractions extends React.Component {
                 <hr className="rounded" />
                 {this.state.attraction &&
                 this.state.attraction.sort(function compare(a, b) {
-                    if (a.name<b.name)
-                        return -1
-                    if (a.name>b.name)
-                        return 1
-                    return 0
+                    return a.name.localeCompare(b.name)
                     })
                     .map((atrakcje) =>
                         <>
