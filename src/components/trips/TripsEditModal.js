@@ -122,17 +122,17 @@ export class TripsEditModal extends React.Component {
                             placeholder="Nazwa" 
                             type="text" 
                             style={{width: "100%"}}
-                            value={this.state.form.name} 
+                            value={this.state.form.name ? this.state.form.name : ""} 
                             onChange={(event)=>this.handleNameChange(event)} />
                         <p></p>
                         <textarea 
                             placeholder="Opis" 
                             style={{width: "100%"}}
                             rows={5}
-                            value={this.state.form.description} 
+                            value={this.state.form.description ? this.state.form.description : ""} 
                             onChange={(event)=>this.handleDescriptionChange(event)} />
                         <p></p>
-                        <label for="data">Data wycieczki:</label>
+                        <label>Data wycieczki:</label>
                         <input 
                             id="data"
                             type="date" 
@@ -145,7 +145,7 @@ export class TripsEditModal extends React.Component {
                             placeholder="Link do trasy" 
                             type="text" 
                             style={{width: "100%"}}
-                            value={this.state.form.mapaTurystycznaLink} 
+                            value={this.state.form.mapaTurystycznaLink ? this.state.form.mapaTurystycznaLink : ""} 
                             onChange={(event)=>this.handleMapChange(event)} />
                         <p></p>
                         <Select 

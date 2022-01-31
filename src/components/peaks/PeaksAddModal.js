@@ -24,7 +24,7 @@ export class PeaksAddModal extends React.Component {
     }
 
     componentDidMount() {
-        myAxios.get(`mountainRange/`)
+        myAxios.get(`mountainRange/list`)
             .then(res => {
                 const mRanges = res.data;
                 const mRangeOptions = 
@@ -130,9 +130,9 @@ export class PeaksAddModal extends React.Component {
                         <p></p>
                         <p>Czy szczyt należy do Korony Gór Polski</p>
                         <input type="radio" id="isKGP" name="isKGP" value={true} />
-                        <label for="isKGP"> TAK </label><br />
+                        <label> TAK </label><br />
                         <input type="radio" id="noKGP" name="isKGP" value={false} />
-                        <label for="noKGP"> NIE </label>
+                        <label> NIE </label>
                         <p></p>
                         <Select 
                             placeholder="Pasmo górskie" 

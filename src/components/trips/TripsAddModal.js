@@ -139,7 +139,7 @@ export class TripsAddModal extends React.Component {
                             value={this.state.form.description} 
                             onChange={(event)=>this.handleDescriptionChange(event)} />
                         <p></p>
-                        <label for="data">Data wycieczki:</label>
+                        <label>Data wycieczki:</label>
                         <input 
                             id="data"
                             type="date" 

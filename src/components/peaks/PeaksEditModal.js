@@ -106,14 +106,14 @@ export class PeaksEditModal extends React.Component {
                             placeholder="Nazwa" 
                             type="text" 
                             style={{width: "100%"}}
-                            value={this.state.form.name} 
+                            value={this.state.form.name ? this.state.form.name : ""} 
                             onChange={(event)=>this.handleNameChange(event)} />
                         <p></p>
                         <textarea 
                             placeholder="Opis" 
                             style={{width: "100%"}}
                             rows={5}
-                            value={this.state.form.description} 
+                            value={this.state.form.description ? this.state.form.description : ""} 
                             onChange={(event)=>this.handleDescriptionChange(event)} />
                         <p></p>
                         <input 
@@ -126,9 +126,9 @@ export class PeaksEditModal extends React.Component {
                         <p>Czy szczyt należy do Korony Gór Polski</p>
                         <>
                         <input type="radio" id="isKGP" name="isKGP" value={true} onChange={(event)=>this.handleKGPChange(event)} defaultChecked={this.state.form.isKGP}/>
-                        <label for="isKGP"> TAK </label><br />
+                        <label> TAK </label><br />
                         <input type="radio" id="noKGP" name="isKGP" value={false} onChange={(event)=>this.handleKGPChange(event)} defaultChecked={!this.state.form.isKGP} />
-                        <label for="noKGP"> NIE </label>
+                        <label> NIE </label>
                         </>
                         <p></p>
                         <Select 
