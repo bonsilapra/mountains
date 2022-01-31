@@ -60,7 +60,7 @@ function Navigation() {
                     <Nav className={click ? 'nav-menu active' : 'nav-menu'}>
                         <Nav.Link as={Link} to="/trips" onClick={closeMobileMenu}
                         className='nav-links'>Wycieczki</Nav.Link>
-                        <Nav.Link as={Link} to="/Peaks" onClick={closeMobileMenu}
+                        <Nav.Link as={Link} to="/peaks" onClick={closeMobileMenu}
                         className='nav-links'>Szczyty</Nav.Link>
                         <Nav.Link as={Link} to="/mountainRanges" onClick={closeMobileMenu}
                         className='nav-links'>Pasma górskie</Nav.Link>
