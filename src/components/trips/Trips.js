@@ -73,7 +73,6 @@ class TripsWrapped extends React.Component {
         this.setState({orderFunction: orderFunction})
     }
 
-
     addNewTrip (name, description, date, mapaTurystycznaLink, region, mountainRanges, peaks) {
         myAxios.post(`trip`,{
             name: name,
@@ -154,147 +153,150 @@ class TripsWrapped extends React.Component {
 
         return (
             <>
-            <Background image={backgroundImage}/>
-            <div className="page-title">
-                WYCIECZKI
-            </div>
-            <div className='page-container' >
-                <h1>Lista wycieczek</h1>
-                <div style={{marginBottom: "15px"}} className='title-with-buttons'>                    
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setFilterFunction(this.sortAll)}>
-                            Wszystkie 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
-                    </MyButton>
-                    <MyButton 
-                        buttonStyle='btn--primary-padding'
-                        onClick={() => this.setFilterFunction(this.sortKGP)}>
-                            Korona Gór Polski 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
-                    </MyButton>
+                <Background image={backgroundImage}/>
+                <div className="page-title">
+                    WYCIECZKI
                 </div>
-                <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setOrderFunction(this.orderAbc)}>
-                            Alfabetycznie 
-                    </MyButton>
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setOrderFunction(this.orderDate)}>
-                            Wg dat
-                    </MyButton>
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setOrderFunction(this.orderRegion)}>
-                            Wg regionów
-                    </MyButton>
-                </div>
-                {this.state.isError &&
-                    <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
-                    Backend nie działa!!!
-                    </Alert>
-                }
-                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                <>
-                <h5>  
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={()=> this.setAdd(true)}>
-                            DODAJ 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
-                    </MyButton>
-                </h5>
-                </>
-                }
-                {this.state.trip &&
-                this.state.trip
-                    .filter(this.state.filterFunction)
-                    .sort(this.state.orderFunction)
-                    .map((wycieczki) =>
+                <div className='page-container' >
+                    <h1>Lista wycieczek</h1>
+                    <div style={{marginBottom: "15px"}} className='title-with-buttons'>                    
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setFilterFunction(this.sortAll)}>
+                                Wszystkie 
+                                <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary-padding'
+                            onClick={() => this.setFilterFunction(this.sortKGP)}>
+                                Korona Gór Polski 
+                                <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
+                        </MyButton>
+                    </div>
+                    <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setOrderFunction(this.orderAbc)}>
+                                Alfabetycznie 
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setOrderFunction(this.orderDate)}>
+                                Wg dat
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setOrderFunction(this.orderRegion)}>
+                                Wg regionów
+                        </MyButton>
+                    </div>
+                    {this.state.isError &&
+                        <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
+                            Backend nie działa!!!
+                        </Alert>
+                    }
+                    {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                         <>
-                            <hr className="rounded" />
-                            <h4 id={"wycieczka" + wycieczki.id} style={{marginTop: "0"}}>
-                                <Link className="link" to={"/trip/" + wycieczki.id}> {wycieczki.name} - {moment(wycieczki.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</Link>
-                            </h4>
-                            {wycieczki.region &&
-                            <h6> Region: <Link 
-                                    to={"/regions"}
-                                    state={{ regionId: wycieczki.region.id }}
-                                >
-                                    {wycieczki.region.name}
-                                </Link>
-                            </h6>
-                            }
-
-                            {wycieczki.mountainRanges.length != 0 &&
-                            <>
-                            Pasmo górskie:
-                            <ul className="list-no-bullets-center">
-                                {wycieczki.mountainRanges != null ? 
-                                    (wycieczki.mountainRanges.map((mRange) =>
-                                        <li key={mRange.id}>
-                                            <Link to={"/mountainRange/"+ mRange.id}
-                                            state={{ mountainRangeId: mRange.id }}
-                                            className="link"
-                                            >
-                                                {mRange.name}
-                                            </Link> 
-                                        </li>
-                                    ))
-                                : (<p></p>)}
-                            </ul>
-                            </>
-                            }
-
-                            {wycieczki.peaks.length != 0 &&
-                            <>
-                            Szczyt:
-                            <ul className="list-no-bullets-center">
-                                {wycieczki.peaks != null ? 
-                                    (wycieczki.peaks.map((peak) =>
-                                        <li key={peak.id}>
-                                            <Link to={"/peaks/"}
-                                                state={{ peakId: peak.id }}
-                                                className="link"
-                                            >
-                                                {peak.name}
-                                            </Link> 
-                                        </li>
-                                    ))
-                                : (<p></p>)}
-                            </ul>
-                            </>
-                            }
-
-                            {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                            <section className='title-with-buttons-admin'>
-                                <div>      
-                                    <MyButton 
-                                        buttonStyle='btn--primary'
-                                        onClick={(event)=> {this.setEdit(true, wycieczki.id, wycieczki); event.stopPropagation()}}>
-                                            <i className="fas fa-pen"></i>                   
-                                    </MyButton>
-                                </div>
-                                <div>
-                                    <MyButton 
-                                        buttonStyle='btn--outline'
-                                        onClick={(event)=> {this.setShow(true, wycieczki.id); event.stopPropagation()}}>
-                                            <i className="fas fa-trash"></i>                   
-                                    </MyButton>
-                                </div>
-                            </section>
-                            }
+                            <h5>  
+                                <MyButton 
+                                    buttonStyle='btn--primary'
+                                    onClick={()=> this.setAdd(true)}>
+                                        DODAJ 
+                                        <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
+                                </MyButton>
+                            </h5>
                         </>
-                    )
-                }
-                <hr className="rounded" />
-            </div>
-            <TripsAddModal show={this.state.add} setOpen={this.setAdd} addNewTrip={this.addNewTrip}/>
-            <TripsEditModal show={this.state.edit} setOpen={this.setEdit} editTrip={this.editTrip} editObject={this.state.editObject}/>
-            
-            <Modal show={this.state.show} onHide={()=> this.setShow(false)}>
+                    }
+                    {this.state.trip &&
+                    this.state.trip
+                        .filter(this.state.filterFunction)
+                        .sort(this.state.orderFunction)
+                        .map((wycieczki) =>
+                            <React.Fragment key={wycieczki.id}>
+                                <hr className="rounded" />
+                                <h4 id={"wycieczka" + wycieczki.id} style={{marginTop: "0"}}>
+                                    <Link className="link" to={"/trip/" + wycieczki.id}> {wycieczki.name} - <span style={{whiteSpace: "nowrap"}}>{moment(wycieczki.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</span></Link>
+                                </h4>
+                                {wycieczki.region &&
+                                    <h6> Region: 
+                                        <Link 
+                                            to={"/regions"}
+                                            state={{ regionId: wycieczki.region.id }}
+                                        >
+                                            {wycieczki.region.name}
+                                        </Link>
+                                    </h6>
+                                }
+                                {wycieczki.mountainRanges.length != 0 &&
+                                    <>
+                                        Pasmo górskie:
+                                        <ul className="list-no-bullets-center">
+                                            {wycieczki.mountainRanges != null ? 
+                                                (wycieczki.mountainRanges.map((mRange) =>
+                                                    <li key={mRange.id}>
+                                                        <Link 
+                                                            to={"/mountainRange/"+ mRange.id}
+                                                            state={{ mountainRangeId: mRange.id }}
+                                                            className="link"
+                                                        >
+                                                            {mRange.name}
+                                                        </Link> 
+                                                    </li>
+                                                ))
+                                            : (<p></p>)
+                                            }
+                                        </ul>
+                                    </>
+                                }
+
+                                {wycieczki.peaks.length != 0 &&
+                                    <>
+                                        Szczyt:
+                                        <ul className="list-no-bullets-center">
+                                            {wycieczki.peaks != null ? 
+                                                (wycieczki.peaks.map((peak) =>
+                                                    <li key={peak.id}>
+                                                        <Link to={"/peaks/"}
+                                                            state={{ peakId: peak.id }}
+                                                            className="link"
+                                                        >
+                                                            {peak.name}
+                                                        </Link> 
+                                                    </li>
+                                                ))
+                                            : (<p></p>)
+                                            }
+                                        </ul>
+                                    </>
+                                }
+
+                                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                                    <section className='title-with-buttons-admin'>
+                                        <div>      
+                                            <MyButton 
+                                                buttonStyle='btn--primary'
+                                                onClick={(event)=> {this.setEdit(true, wycieczki.id, wycieczki); event.stopPropagation()}}>
+                                                    <i className="fas fa-pen"></i>                   
+                                            </MyButton>
+                                        </div>
+                                        <div>
+                                            <MyButton 
+                                                buttonStyle='btn--outline'
+                                                onClick={(event)=> {this.setShow(true, wycieczki.id); event.stopPropagation()}}>
+                                                    <i className="fas fa-trash"></i>                   
+                                            </MyButton>
+                                        </div>
+                                    </section>
+                                }
+                            </React.Fragment>
+                        )
+                    }
+                    <hr className="rounded" />
+                </div>
+                <TripsAddModal show={this.state.add} setOpen={this.setAdd} addNewTrip={this.addNewTrip}/>
+                <TripsEditModal show={this.state.edit} setOpen={this.setEdit} editTrip={this.editTrip} editObject={this.state.editObject}/>
+                
+                <Modal show={this.state.show} onHide={()=> this.setShow(false)}>
                     <Modal.Header closeButton>
                         <Modal.Title>Usuwanie</Modal.Title>
                     </Modal.Header>
@@ -306,7 +308,6 @@ class TripsWrapped extends React.Component {
                         <Button variant="primary" onClick={()=> this.handleDelete()}>Usuń</Button>
                     </Modal.Footer>
                 </Modal>
-            
             </>
         );
     }

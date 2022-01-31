@@ -14,7 +14,8 @@ export class MRPostcard extends React.Component {
                     {this.props.name}
                 </div>) :
                 (<div className='card-items' style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3))`}}> 
-                    {this.props.name}
+                    <p className='card-items-tobe'>Będzie wkrótce :&#41;</p>
+                    <p>{this.props.name}</p>
                 </div>)
                 }
             </Link>

@@ -70,7 +70,7 @@
         height: 90vh;
         position: absolute;
         top: 45px;
-        left: -100%;
+        left: -120%;
         transition: all 0.5s ease;
     }
 

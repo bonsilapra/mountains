@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import myAxios from '../../utilities/myAxios';
 import { Link } from 'react-router-dom'
 import moment from 'moment';
+import { MyButton } from '../button/MyButton';
 import './MountainRanges.css';
 import '../commons/Commons.css';
 
@@ -41,68 +42,81 @@ export function MountainRange() {
                 PASMA GÓRSKIE
             </div>
             {mountainRange &&
-            <div className='page-container' >        
-                <h1>{mountainRange.name}</h1>
-                <h4>Opis</h4>
-                <p style={{whiteSpace: "pre-wrap"}}>
-                    {mountainRange.description}
-                </p>
-                {mountainRange.region &&
-                <h6> Region: <Link 
-                        to={"/regions"}
-                        state={{ regionId: mountainRange.region.id }}
-                    >
-                        {mountainRange.region.name}
-                    </Link>
-                </h6>
-                }
-                <h4>Szczyty</h4>
-                {mountainRange.peaks &&
-                <>
-                <ul className="list-no-bullets" style={{whiteSpace: "pre-wrap"}}>
-                    {mountainRange.peaks.sort(function compare(a, b) {
-                            if (a.height>b.height)
-                                return -1
-                            if (a.height<b.height)
-                                return 1
-                            return 0
-                            })
-                    .map((peak) =>
-                    
-                        <li style={{whiteSpace: "pre-wrap"}}>
-                            <Link 
-                                className='link'
-                                to={"/peaks"}
-                                state={{ peakId: peak.id }}
+                <div className='page-container' > 
+                    <Link to={"/mountainRanges"}>
+                        <MyButton>
+                            Powrót do listy pasm górskich <i className="fas fa-undo-alt"></i>
+                        </MyButton>
+                    </Link>        
+                    <h1>{mountainRange.name}</h1>
+                    <h4>Opis</h4>
+                    <p style={{whiteSpace: "pre-wrap"}}>
+                        {mountainRange.description}
+                    </p>
+                    {mountainRange.region &&
+                        <h6> Region: <Link 
+                                to={"/regions"}
+                                state={{ regionId: mountainRange.region.id }}
                             >
-                                {peak.name}
+                                {mountainRange.region.name}
                             </Link>
-                                : wysokość {peak.height} m n.p.m. - {peak.description} <br />
-                                {peak.isKGP==true ? (
-                                    <b>Szczyt należy do Korony Gór Polski.</b>): (null)}
-                        </li>
-                    )}
-                </ul>
-                </>
-                }
-                <h4>Wycieczki</h4>
-                {mountainRange.trips != null && mountainRange.trips.length != 0 ?
-                    (
-                    <ul className="list-no-bullets">
-                        {mountainRange.trips.map((trip) =>
-                            <li><b><Link 
-                            className='link'
-                            to={"/trip/" + trip.id}
-                            state={{ tripId: trip.id }}
-                        >{trip.name}</Link></b> 
-                        ({moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")})</li>
-                        )}
-                    </ul>
-                    ):
-                    (<h6>Będą wkrótce :&#41;</h6>)
-                            
-                }
-            </div>
+                        </h6>
+                    }
+                    <h4>Szczyty</h4>
+                    {mountainRange.peaks &&
+                        <>
+                            <ul className="list-no-bullets-center" style={{whiteSpace: "pre-wrap"}}>
+                                {mountainRange.peaks.sort(function compare(a, b) {
+                                        if (a.height>b.height)
+                                            return -1
+                                        if (a.height<b.height)
+                                            return 1
+                                        return 0
+                                        })
+                                .map((peak) =>
+                                    <li key={peak.id} style={{whiteSpace: "pre-wrap", marginBottom: "10px"}}>
+                                        <Link 
+                                            className='link'
+                                            to={"/peaks"}
+                                            state={{ peakId: peak.id }}
+                                        >
+                                            <h5>{peak.name}</h5>
+                                        </Link>
+                                        <p style={{margin: "0"}}>Wysokość <b>{peak.height}</b> m n.p.m.</p>
+                                        <p style={{margin: "0"}}>{peak.description}</p> 
+                                            {peak.isKGP==true ? (
+                                                <b>Szczyt należy do Korony Gór Polski.</b>): (null)}
+                                    </li>
+                                )}
+                            </ul>
+                        </>
+                    }
+                    <h4>Wycieczki</h4>
+                    {mountainRange.trips != null && mountainRange.trips.length != 0 ?
+                        (
+                        <ul className="list-no-bullets-center-line">
+                            {mountainRange.trips.map((trip) =>
+                                <li key={trip.id}>
+                                    <b><Link 
+                                        className='link'
+                                        to={"/trip/" + trip.id}
+                                        state={{ tripId: trip.id }}
+                                    >
+                                        {trip.name}
+                                    </Link></b> 
+                                    &nbsp;({moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")})
+                                </li>
+                            )}
+                        </ul>
+                        ):
+                        (<h6>Będą wkrótce :&#41;</h6>)
+                    }
+                    <Link to={"/mountainRanges"}>
+                        <MyButton>
+                            Powrót do listy pasm górskich <i className="fas fa-undo-alt"></i>
+                        </MyButton>
+                    </Link> 
+                </div>
             }
         </>
     )

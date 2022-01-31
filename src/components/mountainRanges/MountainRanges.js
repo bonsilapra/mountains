@@ -38,10 +38,9 @@ export class MountainRanges extends React.Component {
                 PASMA GÓRSKIE
             </div>
             <div className='page-container' >
-
                 {this.state.isError &&
                     <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
-                    Backend nie działa!!!
+                        Backend nie działa!!!
                     </Alert>
                 }
                 <h1>Pasma górskie uwzględnione w Koronie Gór Polski</h1>
@@ -49,10 +48,9 @@ export class MountainRanges extends React.Component {
                     {this.state.mountainRange &&
                     this.state.mountainRange.sort(function compare(a, b) {
                         return a.name.localeCompare(b.name)
-
                         })
                         .map((mRange) =>
-                                <MRPostcard id={mRange.id} peak={mRange.peaks} name={mRange.name} img={mRange.photo}/>
+                            <MRPostcard key={mRange.id} id={mRange.id} peak={mRange.peaks} name={mRange.name} img={mRange.photo}/>
                         )
                     }
                 </div>

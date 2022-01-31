@@ -103,7 +103,6 @@ export class Attractions extends React.Component {
             )
         }
 
-
     render() {
 
         const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
@@ -120,18 +119,18 @@ export class Attractions extends React.Component {
                 <br />
                 {this.state.isError &&
                     <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
-                    Backend nie działa!!!
+                        Backend nie działa!!!
                     </Alert>
                 }
                 {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                <h5 style={{marginBottom: "15px"}}>                    
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={()=> this.setAdd(true)}>
-                            DODAJ 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
-                    </MyButton>
-                </h5>
+                    <h5 style={{marginBottom: "15px"}}>                    
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={()=> this.setAdd(true)}>
+                                DODAJ 
+                                <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
+                        </MyButton>
+                    </h5>
                 }
                 <hr className="rounded" />
                 {this.state.attraction &&
@@ -139,17 +138,19 @@ export class Attractions extends React.Component {
                     return a.name.localeCompare(b.name)
                     })
                     .map((atrakcje) =>
-                        <>
+                        <React.Fragment key={atrakcje.id}>
                             <h4 style={{marginTop: "0"}}>
                                 {atrakcje.name}   
                             </h4>
                             <p style={{whiteSpace: "pre-wrap"}}>{atrakcje.description}</p>
                             {atrakcje.region != null ? 
-                            (<h6>Region: <Link to={"/regions"}
-                                state={{ regionId: atrakcje.region.id }}
-                                >
-                                    {atrakcje.region.name}
-                                </Link> </h6>) : (<p></p>)}
+                                (<h6>Region: <Link to={"/regions"}
+                                    state={{ regionId: atrakcje.region.id }}
+                                    >
+                                        {atrakcje.region.name}
+                                    </Link> </h6>) 
+                                : (<p></p>)
+                            }
                             {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                                 <section className='title-with-buttons'>
                                     <div>      
@@ -165,11 +166,11 @@ export class Attractions extends React.Component {
                                             onClick={(event)=> {this.setShow(true, atrakcje.id); event.stopPropagation()}}>
                                                 <i className="fas fa-trash"></i>                   
                                         </MyButton>
-                                        </div>
+                                    </div>
                                 </section>
                             }
                             <hr className="rounded" />
-                        </>
+                        </React.Fragment>
                     )
                 }
             </div>

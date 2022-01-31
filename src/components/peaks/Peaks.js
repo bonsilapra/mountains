@@ -143,13 +143,13 @@ class PeaksWrapped extends React.Component {
             .then(res => {
                 const peak = res.data;
                 this.setState({ peak });
-                setTimeout(() => this.setState(document.getElementById("szczyt" + this.props.location.state.peakId).scrollIntoView()), 1000)
+                if (this.props.location.state) {
+                    setTimeout(() => this.setState(document.getElementById("szczyt" + this.props.location.state.peakId).scrollIntoView()), 1000)
                 }
-            )
+            })
             .catch(error => {
                 this.setState({ isError: true });
-                }
-            )
+            })
     }
 
 
@@ -159,133 +159,137 @@ class PeaksWrapped extends React.Component {
 
         return (
             <>
-            <Background image={backgroundImage}/>
-            <div className="page-title">
-                SZCZYTY
-            </div>
-            <div className='page-container' >
-                <h1>Lista szczytów</h1>
-                <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setSortFunction(this.sortAll)}>
-                            Wszystkie 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
-                    </MyButton>
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setSortFunction(this.sortKGP)}>
-                            Korona Gór Polski 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
-                    </MyButton>
+                <Background image={backgroundImage}/>
+                <div className="page-title">
+                    SZCZYTY
                 </div>
-                <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setOrderFunction(this.orderAbc)}>
-                            Alfabetycznie 
-                    </MyButton>
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setOrderFunction(this.orderHeight)}>
-                            Od najwyższego
-                    </MyButton>
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setOrderFunction(this.orderHeightLowest)}>
-                            Od najniższego
-                    </MyButton>
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={() => this.setOrderFunction(this.orderMRange)}>
-                            Pasma górskie
-                    </MyButton>
-                </div>
-                {this.state.isError &&
-                    <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
-                    Backend nie działa!!!
-                    </Alert>
-                }
-                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                <>
-                <h5>  
-                    <MyButton 
-                        buttonStyle='btn--primary'
-                        onClick={()=> this.setAdd(true)}>
-                            DODAJ 
-                            <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
-                    </MyButton>
-                </h5>
-                </>
-                }
-                {this.state.peak &&
-                this.state.peak
-                    .filter(this.state.sortFunction)
-                    .sort(this.state.orderFunction)
-                    .map((szczyty) =>
+                <div className='page-container' >
+                    <h1>Lista szczytów</h1>
+                    <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setSortFunction(this.sortAll)}>
+                                Wszystkie 
+                                <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setSortFunction(this.sortKGP)}>
+                                Korona Gór Polski 
+                                <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
+                        </MyButton>
+                    </div>
+                    <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setOrderFunction(this.orderAbc)}>
+                                Alfabetycznie 
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setOrderFunction(this.orderHeight)}>
+                                Od najwyższego
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setOrderFunction(this.orderHeightLowest)}>
+                                Od najniższego
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary'
+                            onClick={() => this.setOrderFunction(this.orderMRange)}>
+                                Pasma górskie
+                        </MyButton>
+                    </div>
+                    {this.state.isError &&
+                        <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
+                            Backend nie działa!!!
+                        </Alert>
+                    }
+                    {userLogin!=null && userLogin.roles.includes("ADMIN") &&
                         <>
-                            <div id={"szczyt" + szczyty.id} className="page">
-                                <hr className="rounded" />
-                                <h4>
-                                    <b>{szczyty.name}</b> - {szczyty.height} m n.p.m.
-                                </h4>
-                                {szczyty.mountainRange != null ? 
-                                (<p>Pasmo górskie: <Link to={"/mountainRange/"+ szczyty.mountainRange.id}
-                                    state={{ mountainRangeId: szczyty.mountainRange.id }}
-                                    className="link"
-                                    >
-                                        {szczyty.mountainRange.name}
-                                    </Link> </p>) : (<p></p>)}
-                                <p style={{whiteSpace: "pre-wrap"}}>{szczyty.description}</p>
-                                {szczyty.trips.length != 0 &&
-                                <>
-                                Wycieczki:
-                                <ul className="list-no-bullets-center">
-                                    {szczyty.trips != null ? 
-                                        (szczyty.trips.map((trip) =>
-                                            <li>
-                                                <Link to={"/trip/" + trip.id}
-                                                state={{ tripId: trip.id}}
-                                                className="link"
-                                                >
-                                                    {trip.name} - {moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}
-                                                </Link> 
-                                            </li>
-                                        
-                                        ))
-                                    : (<p></p>)}
-                                </ul>
-                                </>
-                                }
-                                {userLogin!=null && userLogin.roles.includes("ADMIN") &&
-                                <section className='title-with-buttons'>
-                                    <div>      
-                                        <MyButton 
-                                            buttonStyle='btn--primary'
-                                            onClick={(event)=> {this.setEdit(true, szczyty.id, szczyty); event.stopPropagation()}}>
-                                                <i className="fas fa-pen"></i>                   
-                                        </MyButton>
-                                    </div>
-                                    <div>
-                                        <MyButton 
-                                            buttonStyle='btn--outline'
-                                            onClick={(event)=> {this.setShow(true, szczyty.id); event.stopPropagation()}}>
-                                                <i className="fas fa-trash"></i>                   
-                                        </MyButton>
-                                        </div>
-                                </section>
-                                }
-                            </div>
+                            <h5>  
+                                <MyButton 
+                                    buttonStyle='btn--primary'
+                                    onClick={()=> this.setAdd(true)}>
+                                        DODAJ 
+                                        <i style= {{"paddingLeft":"10px"}} className="fas fa-plus"></i>                   
+                                </MyButton>
+                            </h5>
                         </>
-                    )
-                }
-                <hr className="rounded" />
+                    }
+                    {this.state.peak &&
+                    this.state.peak
+                        .filter(this.state.sortFunction)
+                        .sort(this.state.orderFunction)
+                        .map((szczyty) =>
+                            <React.Fragment key={szczyty.id}>
+                                <div id={"szczyt" + szczyty.id} className="page">
+                                    <hr className="rounded" />
+                                    <h4>
+                                        <b>{szczyty.name}</b> - {szczyty.height} m n.p.m.
+                                    </h4>
+                                    {szczyty.mountainRange != null ? 
+                                        (<p>Pasmo górskie: <Link to={"/mountainRange/"+ szczyty.mountainRange.id}
+                                            state={{ mountainRangeId: szczyty.mountainRange.id }}
+                                            className="link"
+                                            >
+                                                {szczyty.mountainRange.name}
+                                            </Link> </p>) 
+                                        : (<p></p>)
+                                    }
+                                    <p style={{whiteSpace: "pre-wrap"}}>{szczyty.description}</p>
+                                    {szczyty.trips.length != 0 &&
+                                    <>
+                                        Wycieczki:
+                                        <ul className="list-no-bullets-center">
+                                            {szczyty.trips != null ? 
+                                                (szczyty.trips.map((trip) =>
+                                                    <li key={trip.id}>
+                                                        <Link 
+                                                            to={"/trip/" + trip.id}
+                                                            state={{ tripId: trip.id}}
+                                                            className="link"
+                                                        >
+                                                            {trip.name} - <span style={{whiteSpace: "nowrap"}}>{moment(trip.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</span>
+                                                        </Link> 
+                                                    </li>
+                                                
+                                                ))
+                                            : (<p></p>)
+                                            }
+                                        </ul>
+                                    </>
+                                    }
+                                    {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                                        <section className='title-with-buttons'>
+                                            <div>      
+                                                <MyButton 
+                                                    buttonStyle='btn--primary'
+                                                    onClick={(event)=> {this.setEdit(true, szczyty.id, szczyty); event.stopPropagation()}}>
+                                                        <i className="fas fa-pen"></i>                   
+                                                </MyButton>
+                                            </div>
+                                            <div>
+                                                <MyButton 
+                                                    buttonStyle='btn--outline'
+                                                    onClick={(event)=> {this.setShow(true, szczyty.id); event.stopPropagation()}}>
+                                                        <i className="fas fa-trash"></i>                   
+                                                </MyButton>
+                                                </div>
+                                        </section>
+                                    }
+                                </div>
+                            </React.Fragment>
+                        )
+                    }
+                    <hr className="rounded" />
 
-            </div>
-            <PeaksAddModal show={this.state.add} setOpen={this.setAdd} addNewPeak={this.addNewPeak}/>
-            <PeaksEditModal show={this.state.edit} setOpen={this.setEdit} editPeak={this.editPeak} editObject={this.state.editObject}/>
-            
-            <Modal show={this.state.show} onHide={()=> this.setShow(false)}>
+                </div>
+                <PeaksAddModal show={this.state.add} setOpen={this.setAdd} addNewPeak={this.addNewPeak}/>
+                <PeaksEditModal show={this.state.edit} setOpen={this.setEdit} editPeak={this.editPeak} editObject={this.state.editObject}/>
+                
+                <Modal show={this.state.show} onHide={()=> this.setShow(false)}>
                     <Modal.Header closeButton>
                         <Modal.Title>Usuwanie</Modal.Title>
                     </Modal.Header>
@@ -297,7 +301,6 @@ class PeaksWrapped extends React.Component {
                         <Button variant="primary" onClick={()=> this.handleDelete()}>Usuń</Button>
                     </Modal.Footer>
                 </Modal>
-            
             </>
         );
     }

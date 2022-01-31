@@ -210,7 +210,9 @@ export default function Regions() {
         const axiosPosts = async () => {
             const response = await myAxios('region');
             setRegions(response.data);
-            setTimeout(() => document.getElementById('region' + location.state.regionId).scrollIntoView(), 1000)
+            if (location.state) {
+                setTimeout(() => document.getElementById('region' + location.state.regionId).scrollIntoView(), 1000)
+            }
         };
         axiosPosts();
     }, []);
@@ -231,89 +233,100 @@ export default function Regions() {
                 REGIONY
             </div>
             {regions.length !== 0 && 
-            <div className="page-container">
-                <h1>Podział Polski na "regiony"</h1>
-                <p>"Regiony" zostały określone przeze mnie jako obszary, po których przemieszczałam się w ramach jednego wyjazdu. Jest to tylko mój wymysł, który ułatwia planowanie wycieczek.</p>
-                <div>
-                    {resize && <ImageMapper
-                        src={polandMap}
-                        map={mapAreas}
-                        alt="Mapa Polski"
-                        onMouseEnter={(area) => { enterArea(area) }}
-                        onMouseLeave={(area) => { leaveArea(area) }}
-                        onClick={(area) => { onMapClick(area) }}
-                    />
-                    }
-                </div>
-                <div>
-                    {resize || <ImageMapper
-                        src={smallPolandMap}
-                        map={smallMapAreas}
-                        alt="Mapa Polski"
-                        onMouseEnter={(area) => { enterArea(area) }}
-                        onMouseLeave={(area) => { leaveArea(area) }}
-                        onImageClick={(area) => { leaveArea(area) }}
-                        onClick={(area) => { onMapClick(area) }}
-                    />
-                    }
-                </div>
-                <h4>{area}</h4>
-                    {regions.sort(function compare(a, b) {
-                        return a.name.localeCompare(b.name)
-                        })
-                    .map((region) =>
-                        <div id={"region" + region.id} className="page">
-                            <hr className="rounded" />
-                            <h2>{region.name}</h2>
-                            <p style={{whiteSpace: "pre-wrap"}}>{region.description}</p>
-                            <h5>Pasma górskie w regionie:</h5>
-                                {region.mountainRanges.map((mountainRange) =>
-                                <ul className="list-no-bullets-center">
-                                    <li style={{fontSize: "18px"}}><Link to={"/mountainRange/" + mountainRange.id} className="link">
-                                        <b>{mountainRange.name}</b></Link>: </li>
-                                        <ul className="list-no-bullets-inside"> 
-                                            {mountainRange.peaks.sort(function compare(a, b) {
-                                                return a.name.localeCompare(b.name)
-                                                })
-                                            .map((peak) =>
-                                                <li>{peak.isKGP==true ? (
-                                                    <Link 
-                                                    className='link'
-                                                    to={"/peaks"}
-                                                    state={{ peakId: peak.id }}
-                                                    >
-                                                        <b> {peak.name} </b></Link>
-                                                ): 
-                                                <Link 
-                                                    className='link'
-                                                    to={"/peaks"}
-                                                    state={{ peakId: peak.id }}
-                                                    ><b style={{fontWeight: 400}}>{peak.name}</b></Link>}
+                <div className="page-container">
+                    <h1>Podział Polski na "regiony"</h1>
+                    <p>"Regiony" zostały określone przeze mnie jako obszary, po których przemieszczałam się w ramach jednego wyjazdu. Jest to tylko mój wymysł, który ułatwia planowanie wycieczek.</p>
+                    <div style={{zIndex:"0"}}>
+                        {resize && 
+                            <ImageMapper
+                                src={polandMap}
+                                map={mapAreas}
+                                alt="Mapa Polski"
+                                onMouseEnter={(area) => { enterArea(area) }}
+                                onMouseLeave={(area) => { leaveArea(area) }}
+                                onClick={(area) => { onMapClick(area) }}
+                            />
+                        }
+                    </div>
+                    <div style={{zIndex:"0"}}>
+                        {resize || 
+                            <ImageMapper
+                                src={smallPolandMap}
+                                map={smallMapAreas}
+                                alt="Mapa Polski"
+                                onMouseEnter={(area) => { enterArea(area) }}
+                                onMouseLeave={(area) => { leaveArea(area) }}
+                                onImageClick={(area) => { leaveArea(area) }}
+                                onClick={(area) => { onMapClick(area) }}
+                            />
+                        }
+                    </div>
+                    <h4>{area}</h4>
+                        {regions.sort(function compare(a, b) {
+                            return a.name.localeCompare(b.name)
+                            })
+                            .map((region) =>
+                                <div key={region.id} id={"region" + region.id} className="page">
+                                    <hr className="rounded" />
+                                    <h2>{region.name}</h2>
+                                    <p style={{whiteSpace: "pre-wrap"}}>{region.description}</p>
+                                    <h5>Pasma górskie w regionie:</h5>
+                                        {region.mountainRanges.map((mountainRange) =>
+                                            <ul key={mountainRange.id} className="list-no-bullets-center-regions">
+                                                <li style={{fontSize: "18px"}}><Link to={"/mountainRange/" + mountainRange.id} className="link">
+                                                    <b>{mountainRange.name}</b></Link>: 
                                                 </li>
+                                                <ul className="list-no-bullets-inside"> 
+                                                    {mountainRange.peaks.sort(function compare(a, b) {
+                                                        return a.name.localeCompare(b.name)
+                                                        })
+                                                        .map((peak) =>
+                                                            <li key={peak.id}>
+                                                                {peak.isKGP==true ? (
+                                                                    <Link 
+                                                                        className='link'
+                                                                        to={"/peaks"}
+                                                                        state={{ peakId: peak.id }}
+                                                                    >
+                                                                        <b> {peak.name} </b></Link>
+                                                                ): 
+                                                                    <Link 
+                                                                        className='link'
+                                                                        to={"/peaks"}
+                                                                        state={{ peakId: peak.id }}
+                                                                    >
+                                                                        <b style={{fontWeight: 400}}>{peak.name}</b>
+                                                                    </Link>
+                                                                }
+                                                            </li>
+                                                        )
+                                                    }
+                                                </ul>
+                                            </ul>
+                                        )}
+                                    <h5>Atrakcje w regionie:</h5>
+                                    {region.attractions != null && region.attractions.length != 0 ? 
+                                        (
+                                        <ul className="list-no-bullets">
+                                            {region.attractions.map((attraction) =>
+                                                <li key={attraction.id}><b>{attraction.name}</b> - {attraction.description}</li>
                                             )}
                                         </ul>
-                                </ul>)}
-                            <h5>Atrakcje w regionie:</h5>
-                            {region.attractions != null && region.attractions.length != 0 ? 
-                                (
-                                <ul className="list-no-bullets">
-                                    {region.attractions.map((attraction) =>
-                                        <li><b>{attraction.name}</b> - {attraction.description}</li>
-                                    )}
-                                </ul>
-                                ):
-                                (<p>Będą wkrótce :&#41;</p>)
-                            }
-                            <div style={{marginBottom: "10px"}}>      
-                                <MyButton 
-                                    buttonStyle='btn--primary'
-                                    onClick={scrollToTop}>
-                                        <i className="fas fa-arrow-up"></i>                   
-                                </MyButton>
-                            </div>
-                        </div>
-                    )}
-            </div>
+                                        ):
+                                        (<p>Będą wkrótce :&#41;</p>)
+                                    }
+                                    <div style={{marginBottom: "10px"}}>      
+                                        <MyButton 
+                                            buttonStyle='btn--primary'
+                                            onClick={scrollToTop}
+                                        >
+                                                <i className="fas fa-arrow-up"></i>                   
+                                        </MyButton>
+                                    </div>
+                                </div>
+                            )
+                        }
+                </div>
             }
         </>
     );
