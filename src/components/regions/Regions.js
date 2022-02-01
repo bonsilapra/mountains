@@ -8,6 +8,7 @@ import ImageMapper from 'react-img-mapper';
 import myAxios from '../../utilities/myAxios';
 import { MyButton } from '../button/MyButton';
 import { Link } from "react-router-dom";
+import { RegionEditModal } from './RegionEditModal';
 import '../commons/Commons.css';
 import './Regions.css';
 
@@ -224,6 +225,39 @@ export default function Regions() {
         });
     };
     
+    const [edit, setEdit] = useState(false);
+    const [editObj, setEditedObj] = useState({});
+
+    const toggleEditModal =(toggle, regionEdit) => {
+        setEdit(toggle);
+        setEditedObj(regionEdit)
+    }
+
+    const editRegion = (regionId, name, description, attractions, mountainRanges, trips) => {
+        myAxios.put(`region`,{
+            id: regionId,
+            name: name,
+            description: description,
+            attractions: attractions,
+            mountainRanges: mountainRanges,
+            trips: trips,
+        })
+        .then((response) => {
+            setRegions(regions.map((region) => {
+                if (region.id == regionId) {
+                    region = (response.data)
+                }
+                return region
+            })
+            );
+            setEdit(false);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
 
 
     return (
@@ -269,6 +303,15 @@ export default function Regions() {
                                 <div key={region.id} id={"region" + region.id} className="page">
                                     <hr className="rounded" />
                                     <h2>{region.name}</h2>
+                                    {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                                        <div style={{marginBottom:"20px"}}>
+                                            <MyButton 
+                                                buttonStyle='btn--primary'
+                                                onClick={(event)=> {toggleEditModal(true, region); event.stopPropagation()}}>
+                                                    <i className="fas fa-pen"></i>                   
+                                            </MyButton>
+                                        </div>
+                                    }
                                     <p style={{whiteSpace: "pre-wrap"}}>{region.description}</p>
                                     <h5>Pasma górskie w regionie:</h5>
                                         {region.mountainRanges.map((mountainRange) =>
@@ -326,6 +369,7 @@ export default function Regions() {
                                 </div>
                             )
                         }
+                    <RegionEditModal show={edit} setOpen={setEdit} editObject={editObj} editRegion={editRegion}/>
                 </div>
             }
         </>

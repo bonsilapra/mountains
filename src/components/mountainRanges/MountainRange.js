@@ -5,6 +5,7 @@ import myAxios from '../../utilities/myAxios';
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import { MyButton } from '../button/MyButton';
+import { MREditModal } from './MREditModal';
 import './MountainRanges.css';
 import '../commons/Commons.css';
 
@@ -32,6 +33,33 @@ export function MountainRange() {
             )
     },[]);
 
+    const [edit, setEdit] = useState(false);
+
+    const toggleEditModal =(toggle) => {
+        setEdit(toggle);
+    }
+
+    const editMRange = (name, description) => {
+        myAxios.put(`mountainRange`,{
+            id: mountainRange.id,
+            name: name,
+            description: description,
+            region: mountainRange.region,
+            peaks: mountainRange.peaks,
+            trips: mountainRange.trips,
+            photo: mountainRange.photo,
+        })
+        .then((response) => {
+            setMRange(response.data);
+            setEdit(false);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const userLogin = JSON.parse(sessionStorage.getItem('userLogin'))
+
 
     return (
         <>
@@ -50,6 +78,16 @@ export function MountainRange() {
                     </Link>        
                     <h1>{mountainRange.name}</h1>
                     <h4>Opis</h4>
+                    {userLogin!=null && userLogin.roles.includes("ADMIN") &&
+                        <div style={{marginBottom:"20px"}}>
+                            <MyButton 
+                                buttonStyle='btn--primary'
+                                onClick={(event)=> {toggleEditModal(true); event.stopPropagation()}}>
+                                    <i className="fas fa-pen"></i>                   
+                            </MyButton>
+                        </div>
+                    }
+                    <MREditModal show={edit} setOpen={setEdit} editObject={mountainRange} editMRange={editMRange}/>
                     <p style={{whiteSpace: "pre-wrap"}}>
                         {mountainRange.description}
                     </p>
