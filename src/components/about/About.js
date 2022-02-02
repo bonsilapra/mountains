@@ -21,7 +21,7 @@ export class About extends React.Component {
                 <h1>Cześć!</h1>
                 <h4>O mnie</h4>
                 <p>
-                    Mam na imię Asia i aktualnie mieszakm w Poznaniu. W wolnym czasie najchętniej jeżdzę w góry z moim chłopakiem Pawłem. Ze względu na odległość najczęściej bywamy w okolicach Ziemi kłodzkiej i w Karkonoszach, ale najbardziej lubię odwiedzać Tatry.
+                    Mam na imię Asia i aktualnie mieszkam w Poznaniu. W wolnym czasie najchętniej jeżdżę w góry z moim chłopakiem Pawłem. Ze względu na odległość najczęściej bywamy w okolicach Ziemi kłodzkiej i w Karkonoszach, ale najbardziej lubię odwiedzać Tatry.
                     Od maja 2020 r. zaczęliśmy razem zdobywać szczyty z Korony Gór Polski. 
                 </p>
                 <p>
