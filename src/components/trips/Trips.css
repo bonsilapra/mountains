@@ -10,6 +10,22 @@
     align-items: center;
 }
 
+.trip-container {
+    width: 70vw;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: justify;
+    align-items: center;
+    object-fit: contain;
+}
+
+.trip-container h4 {
+    margin-top: 0.9rem;
+}
+
+
 .photos {
     display: flex;
     justify-content: space-between;
@@ -17,6 +33,13 @@
 }
 
 
+@media screen and (max-width: 1010px) {
+
+    .trip-container {
+        width: 100%;
+    }
+
+}
 
 @media screen and (max-width: 400px) {
 

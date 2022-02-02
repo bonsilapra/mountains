@@ -98,7 +98,7 @@ export function Trip() {
             </div>
             {trip &&
             <div className='page-container' >   
-                <Link to={"/trips"}>
+                <Link to={"/trips"} state={{ tripId: trip.id }}>
                     <MyButton>
                         Powrót do listy wycieczek <i className="fas fa-undo-alt"></i>
                     </MyButton>

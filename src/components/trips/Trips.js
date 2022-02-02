@@ -137,7 +137,7 @@ class TripsWrapped extends React.Component {
             .then(res => {
                 const trip = res.data;
                 this.setState({ trip });
-                // setTimeout(() => this.setState(document.getElementById("wycieczka" + this.props.location.state.tripId).scrollIntoView()), 1000)
+                setTimeout(() => this.setState(document.getElementById("wycieczka" + this.props.location.state.tripId).scrollIntoView()), 1000);
                 }
             )
             .catch(error => {
@@ -212,16 +212,17 @@ class TripsWrapped extends React.Component {
                         .filter(this.state.filterFunction)
                         .sort(this.state.orderFunction)
                         .map((wycieczki) =>
-                            <React.Fragment key={wycieczki.id}>
+                            <div id={"wycieczka" + wycieczki.id} className='trip-container' key={wycieczki.id}>
                                 <hr className="rounded" />
-                                <h4 id={"wycieczka" + wycieczki.id} style={{marginTop: "0"}}>
+                                <h4>
                                     <Link className="link" to={"/trip/" + wycieczki.id}> {wycieczki.name} - <span style={{whiteSpace: "nowrap"}}>{moment(wycieczki.date, "DD-MM-YYYY hh:mm:ss").format("YYYY-MM-DD")}</span></Link>
                                 </h4>
                                 {wycieczki.region &&
-                                    <h6> Region: 
+                                    <h6> Region:&nbsp;
                                         <Link 
                                             to={"/regions"}
                                             state={{ regionId: wycieczki.region.id }}
+                                            className="link"
                                         >
                                             {wycieczki.region.name}
                                         </Link>
@@ -288,7 +289,7 @@ class TripsWrapped extends React.Component {
                                         </div>
                                     </section>
                                 }
-                            </React.Fragment>
+                            </div>
                         )
                     }
                     <hr className="rounded" />
