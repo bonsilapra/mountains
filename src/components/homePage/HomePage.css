@@ -55,6 +55,10 @@
     font-size: 30px;
     margin-top: 4px;
   }
+
+  .home-page-container {
+    padding-top: 0px;
+  }
 }
 
 
