@@ -19,6 +19,8 @@
     text-align: justify;
     align-items: center;
     object-fit: contain;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .trip-container h4 {
@@ -37,6 +39,8 @@
 
     .trip-container {
         width: 100%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
 }

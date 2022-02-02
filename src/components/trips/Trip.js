@@ -198,7 +198,7 @@ export function Trip() {
                     <FileUpload tripId={trip.id}/>
                 }
                 <br />
-                <Link to={"/trips"}>
+                <Link to={"/trips"} state={{ tripId: trip.id }}>
                     <MyButton>
                         Powrót do listy wycieczek <i className="fas fa-undo-alt"></i>
                     </MyButton>
