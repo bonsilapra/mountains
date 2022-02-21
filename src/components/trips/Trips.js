@@ -45,6 +45,10 @@ class TripsWrapped extends React.Component {
         }).length != 0
     }
 
+    sortWinter (element) {
+        return element.name.includes("zimą")
+    }
+
     sortAll (element) {
         return true
     }
@@ -171,6 +175,12 @@ class TripsWrapped extends React.Component {
                             onClick={() => this.setFilterFunction(this.sortKGP)}>
                                 Korona Gór Polski 
                                 <i style= {{"paddingLeft":"10px"}} className="fas fa-mountain"></i>                   
+                        </MyButton>
+                        <MyButton 
+                            buttonStyle='btn--primary-padding'
+                            onClick={() => this.setFilterFunction(this.sortWinter)}>
+                                Zimowe  
+                                <i style= {{"paddingLeft":"10px"}} className="fas fa-snowflake"></i>                   
                         </MyButton>
                     </div>
                     <div style={{marginBottom: "15px"}} className="title-with-buttons">                    
