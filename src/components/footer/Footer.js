@@ -21,7 +21,8 @@ function Footer() {
                         <div className='footer-link-items'>
                             <a href="mailto:asia.kgp@gmail.com">E-mail</a>
                             <a href="https://www.instagram.com/bonsilapra/"
-                            target='blank'
+                            target='_blank' 
+                            rel='noreferrer'
                             aria-label='Instagram'
                             > 
                                 Instagram
@@ -39,7 +40,8 @@ function Footer() {
                     <small className='website-rights'>Copyright© {new Date().getFullYear()} - All Rigths reserved</small>
                     <div>
                         <a href="https://www.instagram.com/bonsilapra/"
-                            target='blank'
+                            target='_blank' 
+                            rel='noreferrer'
                             aria-label='Instagram'
                             className='social-logo'
                         >

@@ -29,7 +29,7 @@ export class About extends React.Component {
                 </p>
                 <p>
                     Wszystkie publikowane tu zdjęcia oraz opisy są mojego autorstwa. Kopiowanie i rozpowszechnianie ich bez zgody jest zabronione. Trasy wycieczek udostępnione są za pomocą portalu: 
-                    <a href="https://mapa-turystyczna.pl/" target='blank'> Mapa Turystyczna </a>
+                    <a href="https://mapa-turystyczna.pl/" target='_blank' rel='noreferrer'> Mapa Turystyczna </a>
 
                 </p>
                 <h4>Kilka słów o tym projekcie</h4>
@@ -44,7 +44,8 @@ export class About extends React.Component {
                     Zapraszam do kontaktu przez e-mail <a href="mailto:asia.kgp@gmail.com">asia.kgp@gmail.com</a> oraz do odwiedzenia mojego profilu na Instagramie:
                 </p>
                 <a href="https://www.instagram.com/bonsilapra/"
-                    target='blank'
+                    target='_blank' 
+                    rel='noreferrer'
                     aria-label='Instagram'
                     className='icon'
                 >
