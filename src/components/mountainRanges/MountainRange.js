@@ -121,7 +121,7 @@ export function MountainRange() {
                                             <h5>{peak.name}</h5>
                                         </Link>
                                         <p style={{margin: "0"}}>Wysokość <b>{peak.height}</b> m n.p.m.</p>
-                                        <p style={{margin: "0"}}>{peak.description}</p> 
+                                        <p style={{margin: "0", textAlign: "justify"}}>{peak.description}</p> 
                                             {peak.isKGP==true ? (
                                                 <b>Szczyt należy do Korony Gór Polski.</b>): (null)}
                                     </li>

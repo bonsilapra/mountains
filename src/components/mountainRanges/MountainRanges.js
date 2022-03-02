@@ -38,12 +38,12 @@ export class MountainRanges extends React.Component {
                 PASMA GÓRSKIE
             </div>
             <div className='page-container' >
+                <h1>Pasma górskie uwzględnione w Koronie Gór Polski</h1>
                 {this.state.isError &&
                     <Alert variant="danger" style = {{textAlign: "center", width: "100%"}}> 
                         Backend nie działa!!!
                     </Alert>
                 }
-                <h1>Pasma górskie uwzględnione w Koronie Gór Polski</h1>
                 <div className='cards-container'>
                     {this.state.mountainRange &&
                     this.state.mountainRange.sort(function compare(a, b) {

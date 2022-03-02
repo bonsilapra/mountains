@@ -28,8 +28,8 @@ export class About extends React.Component {
                     Oprócz opisów tras na szczyty z Korony Gór Polski przedstawiam również trasy na inne szczyty w polskich górach oraz do ciekawych miejsc, na które natrafiliśmy. Informacje na stronie będę uzupełniać w miarę odbywania kolejnych wycieczek. Opisy i wyznaczone trasy są przedstawione takie, jakie były w dniu naszej wycieczki - nie wprowadzam ewnetualnych zmian, które pojawiły się na szlaku później.
                 </p>
                 <p>
-                    Wszystkie publikowane tu zdjęcia oraz opisy są mojego autorstwa. Kopiowanie i rozpowszechnianie ich bez zgody jest zabronione. Trasy wycieczek udostępnione są za pomocą portalu: 
-                    <a href="https://mapa-turystyczna.pl/" target='_blank' rel='noreferrer'> Mapa Turystyczna </a>
+                    Wszystkie publikowane tu zdjęcia oraz opisy są mojego autorstwa. Kopiowanie i rozpowszechnianie ich bez zgody jest zabronione. Trasy wycieczek udostępnione są za pomocą portalu
+                    <a href="https://mapa-turystyczna.pl/" target='_blank' rel='noreferrer'> Mapa Turystyczna</a>.
 
                 </p>
                 <h4>Kilka słów o tym projekcie</h4>

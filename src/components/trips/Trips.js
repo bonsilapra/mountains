@@ -141,13 +141,13 @@ class TripsWrapped extends React.Component {
             .then(res => {
                 const trip = res.data;
                 this.setState({ trip });
-                setTimeout(() => this.setState(document.getElementById("wycieczka" + this.props.location.state.tripId).scrollIntoView()), 1000);
+                if (this.props.location.state) {
+                    setTimeout(() => this.setState(document.getElementById("wycieczka" + this.props.location.state.tripId).scrollIntoView()), 1000)
                 }
-            )
+            })
             .catch(error => {
                 this.setState({ isError: true });
-                }
-            )
+            })
         }
 
 
