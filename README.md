@@ -1,3 +1,26 @@
+# About
+
+This website is dedicated to mountain trips. It contains descriptions, routes and photos of my trips in Polish mountains. You can also find there descriptions of mountain ranges and interesting attractions in the regions that I have visited so far.
+
+## Live demo
+
+[Mountains](http://joanna-falkowska.pl/mountains/)
+
+## Technology stack and tools:
+
+- React.js
+- JavaScript
+- HTML
+- CSS
+- axios
+- bootstrap
+- react-dom
+- react-image-gallery
+- react-img-mapper
+- react-router-dom
+- react-select
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
