@@ -6,6 +6,8 @@ This website is dedicated to mountain trips. It contains descriptions, routes an
 
 [Mountains](http://joanna-falkowska.pl/mountains/)
 
+[Backend](https://github.com/Qbixer/trips-backend) by Qbixer
+
 ## Technology stack and tools:
 
 - React.js
